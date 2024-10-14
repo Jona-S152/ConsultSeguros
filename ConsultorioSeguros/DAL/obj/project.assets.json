@@ -2029,19 +2029,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Jona\\.nuget\\packages\\": {}
+    "C:\\Users\\viamatica\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ConsultorioSeguros\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "E:\\ConsultorioSeguros\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\Jona\\.nuget\\packages\\",
-      "outputPath": "E:\\ConsultorioSeguros\\DAL\\obj\\",
+      "projectPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\viamatica\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Jona\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\viamatica\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2056,8 +2056,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\ConsultorioSeguros\\Entities\\Entities.csproj": {
-              "projectPath": "E:\\ConsultorioSeguros\\Entities\\Entities.csproj"
+            "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj"
             }
           }
         }
@@ -2108,7 +2108,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
