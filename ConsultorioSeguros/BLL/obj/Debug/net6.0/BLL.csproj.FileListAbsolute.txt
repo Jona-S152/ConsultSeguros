@@ -1,0 +1,17 @@
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\BLL.deps.json
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\BLL.dll
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\BLL.pdb
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.AssemblyInfoInputs.cache
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.AssemblyInfo.cs
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.csproj.CoreCompileInputs.cache
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.dll
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\refint\BLL.dll
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.pdb
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\ref\BLL.dll
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\DAL.dll
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\Entities.dll
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\DAL.pdb
+E:\ConsultorioSeguros\BLL\bin\Debug\net6.0\Entities.pdb
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.csproj.AssemblyReference.cache
+E:\ConsultorioSeguros\BLL\obj\Debug\net6.0\BLL.csproj.Up2Date
