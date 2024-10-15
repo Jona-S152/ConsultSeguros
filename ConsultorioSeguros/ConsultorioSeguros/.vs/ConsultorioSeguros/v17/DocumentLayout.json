@@ -1,7 +1,27 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\ConsultorioSeguros\\ConsultorioSeguros\\",
-  "Documents": [],
+  "WorkspaceRootPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|e:\\consultseguros\\consultorioseguros\\dal\\insured\\insuredrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|e:\\consultseguros\\consultorioseguros\\consultorioseguros\\controllers\\insurancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|solutionrelative:controllers\\insurancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|e:\\consultseguros\\consultorioseguros\\dal\\common\\spparameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|e:\\consultseguros\\consultorioseguros\\dal\\common\\procedurenames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|e:\\consultseguros\\consultorioseguros\\dal\\insured\\iinsuredrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{886CE02D-06CD-4409-829F-8F89A090EFB1}|..\\Entities\\Entities.csproj|e:\\consultseguros\\consultorioseguros\\entities\\dtos\\insureddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +29,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SPParameters.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\SPParameters.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Common\\SPParameters.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\SPParameters.cs",
+              "RelativeToolTip": "..\\DAL\\Common\\SPParameters.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T03:16:47.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProcedureNames.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\ProcedureNames.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Common\\ProcedureNames.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\ProcedureNames.cs",
+              "RelativeToolTip": "..\\DAL\\Common\\ProcedureNames.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T03:14:40.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InsuredDTO.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\DTOs\\InsuredDTO.cs",
+              "RelativeDocumentMoniker": "..\\Entities\\DTOs\\InsuredDTO.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\DTOs\\InsuredDTO.cs",
+              "RelativeToolTip": "..\\Entities\\DTOs\\InsuredDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T02:50:04.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InsuredRepository.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Insured\\InsuredRepository.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Insured\\InsuredRepository.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T02:48:31.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IInsuredRepository.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\IInsuredRepository.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Insured\\IInsuredRepository.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\IInsuredRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Insured\\IInsuredRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T02:47:56.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InsuranceController.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuranceController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InsuranceController.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuranceController.cs",
+              "RelativeToolTip": "Controllers\\InsuranceController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T01:36:11.459Z",
+              "EditorCaption": ""
             }
           ]
         },

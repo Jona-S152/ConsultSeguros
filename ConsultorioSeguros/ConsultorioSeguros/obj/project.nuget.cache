@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zg3FwfbjnmY=",
+  "dgSpecHash": "dKM2lBoSpxI=",
   "success": true,
-  "projectFilePath": "E:\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
+  "projectFilePath": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jona\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Jona\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.7\\microsoft.data.sqlclient.2.1.7.nupkg.sha512",

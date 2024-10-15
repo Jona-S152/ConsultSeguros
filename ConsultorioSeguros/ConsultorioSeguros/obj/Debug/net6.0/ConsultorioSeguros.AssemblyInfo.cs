@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsultorioSeguros")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89358b86b0f63e8c4625cd60862c1f77a10ae658")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a98f627e3528a6153d2223e269a893a93ea166c")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsultorioSeguros")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsultorioSeguros")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

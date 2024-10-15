@@ -2396,11 +2396,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
+      "projectUniqueName": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
       "projectName": "ConsultorioSeguros",
-      "projectPath": "E:\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
+      "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\ConsultorioSeguros.csproj",
       "packagesPath": "C:\\Users\\Jona\\.nuget\\packages\\",
-      "outputPath": "E:\\ConsultorioSeguros\\ConsultorioSeguros\\obj\\",
+      "outputPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jona\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2418,11 +2418,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\ConsultorioSeguros\\BLL\\BLL.csproj": {
-              "projectPath": "E:\\ConsultorioSeguros\\BLL\\BLL.csproj"
+            "E:\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj": {
+              "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj"
             },
-            "E:\\ConsultorioSeguros\\Entities\\Entities.csproj": {
-              "projectPath": "E:\\ConsultorioSeguros\\Entities\\Entities.csproj"
+            "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj": {
+              "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj"
             }
           }
         }

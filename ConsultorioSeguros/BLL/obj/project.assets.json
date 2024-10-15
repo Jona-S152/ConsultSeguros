@@ -1946,19 +1946,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\viamatica\\.nuget\\packages\\": {}
+    "C:\\Users\\Jona\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj",
+      "projectUniqueName": "E:\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj",
       "projectName": "BLL",
-      "projectPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj",
-      "packagesPath": "C:\\Users\\viamatica\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\obj\\",
+      "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\BLL\\BLL.csproj",
+      "packagesPath": "C:\\Users\\Jona\\.nuget\\packages\\",
+      "outputPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\BLL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\viamatica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jona\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1973,11 +1973,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj": {
-              "projectPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj"
+            "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj": {
+              "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\DAL.csproj"
             },
-            "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj": {
-              "projectPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj"
+            "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj": {
+              "projectPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\Entities\\Entities.csproj"
             }
           }
         }
@@ -2012,7 +2012,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
