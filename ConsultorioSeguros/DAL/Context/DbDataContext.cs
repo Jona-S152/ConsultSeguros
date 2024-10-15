@@ -19,7 +19,7 @@ namespace DAL.Context
 
         public virtual DbSet<Insurance> Insurances { get; set; } = null!;
         public virtual DbSet<InsuranceInsured> InsuranceInsureds { get; set; } = null!;
-        public virtual DbSet<Insured> Insureds { get; set; } = null!;
+        public virtual DbSet<Entities.Models.Insured> Insureds { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -68,7 +68,7 @@ namespace DAL.Context
                     .HasConstraintName("FK__Insurance__Id_In__3C69FB99");
             });
 
-            modelBuilder.Entity<Insured>(entity =>
+            modelBuilder.Entity<Entities.Models.Insured>(entity =>
             {
                 entity.ToTable("Insured");
 

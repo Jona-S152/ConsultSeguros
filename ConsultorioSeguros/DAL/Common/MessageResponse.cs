@@ -19,5 +19,10 @@ namespace DAL.Common
         public const string InsuranceNotFound = "Seguro no encontrado";
         public const string SuccessfulUpdating = "Actualización exitosa";
         public const string SuccessfulRemoval = "Eliminación exitosa";
+        public const string IdentificationAlreadyExist = "Ya existe un asegurado con esta identificación";
+        public const string InsuredNotFound = "Asegurado no encontrado";
+        public const string Insured = "Asegurado";
+        public const string InsuredList = "Asegurados";
+        public const string InsuredListNotFound = "Asegurados no encontrados";
     }
 }

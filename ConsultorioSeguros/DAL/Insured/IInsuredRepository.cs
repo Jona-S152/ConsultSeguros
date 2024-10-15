@@ -10,10 +10,10 @@ namespace DAL.Insured
     public interface IInsuredRepository
     {
         public Task<bool> AddInsuredAsync(InsuredDTO insuredDTO);
-        public Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO);
+        public Task<Dictionary<bool, InsuredDTO?>> UpdateInsuredAsync(int id, InsuredDTO insuredDTO);
         public Task<bool> DeleteInsuredAsync(int id);
-        public Task<List<InsuredDTO>> GetAllInsuredAsync();
-        public Task<InsuredDTO> GetInsuredAsync(int id);
-        public Task<InsuredDTO> GetInsuredByIdentificationAsync(string identification);
+        public Task<Dictionary<bool, List<InsuredDTO>?>> GetAllInsuredAsync();
+        public Task<Dictionary<bool, InsuredDTO>> GetInsuredAsync(int id);
+        public Task<Dictionary<bool, InsuredDTO>> GetInsuredByIdentificationAsync(string identification);
     }
 }

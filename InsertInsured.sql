@@ -11,7 +11,7 @@ GO
 CREATE OR ALTER   PROCEDURE [dbo].[InsertInsured]
 	@Identification VARCHAR(10),
 	@InsuredName VARCHAR(50),
-	@PhoneNumber DECIMAL(1,1),
+	@PhoneNumber VARCHAR(10),
 	@Age INT,
 	@Result BIT OUTPUT
 AS

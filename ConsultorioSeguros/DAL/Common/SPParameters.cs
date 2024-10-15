@@ -13,5 +13,6 @@ namespace DAL.Common
         public const string PhoneNumber = "@PhoneNumber";
         public const string Age = "@Age";
         public const string Result = "@Result";
+        public const string Id = "@Id";
     }
 }

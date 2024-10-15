@@ -1,6 +1,8 @@
 using BLL.Insurance;
+using BLL.Insured;
 using DAL;
 using DAL.Context;
+using DAL.Insured;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<DbDataContext>(options =>
 
 builder.Services.AddScoped<IInsuranceRepository, InsuranceRepository>();
 builder.Services.AddScoped<IInsuranceService, InsuranceService>();
+builder.Services.AddScoped<IInsuredRepository,  InsuredRepository>();
+builder.Services.AddScoped<IInsuredService, InsuredService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
