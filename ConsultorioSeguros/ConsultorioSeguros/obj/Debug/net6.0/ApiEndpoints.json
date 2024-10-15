@@ -1,0 +1,97 @@
+[
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "AddInsurance",
+    "RelativePath": "api/Insurance/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "insurance",
+        "Type": "Entities.DTOs.InsuranceDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "DeleteInsurance",
+    "RelativePath": "api/Insurance/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "GetInsurance",
+    "RelativePath": "api/Insurance/Get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "GetInsurances",
+    "RelativePath": "api/Insurance/GetAllInsurances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "GetByCode",
+    "RelativePath": "api/Insurance/GetByCode/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "UpdateInsurance",
+    "RelativePath": "api/Insurance/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "insurance",
+        "Type": "Entities.DTOs.InsuranceDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
