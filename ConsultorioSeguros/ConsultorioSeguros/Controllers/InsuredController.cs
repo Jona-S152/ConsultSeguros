@@ -75,5 +75,15 @@ namespace ConsultorioSeguros.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("GetInsuranceByInsured/{identification}")]
+        public async Task<IActionResult> GetInsuranceByInsuredIdentification(string identification)
+        {
+            ResponseJson response = await _insuredService.GetAllInsuranceByInsuredAsync(identification);
+
+            if (response.Error) return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

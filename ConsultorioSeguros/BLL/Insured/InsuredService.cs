@@ -70,6 +70,32 @@ namespace BLL.Insured
             }
         }
 
+        public async Task<ResponseJson> GetAllInsuranceByInsuredAsync(string identification)
+        {
+            ResponseJson response = new ResponseJson();
+
+            try
+            {
+                Dictionary<bool, List<InsuranceDTO>> result = await _insuredRepository.GetAllInsuranceByInsuredAsync(identification);
+
+                if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
+
+                response.Message = MessageResponse.InsuranceByInsuredList;
+                response.Data = result.First().Value;
+                response.Error = false;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Data = null;
+                response.Error = true;
+
+                return response;
+            }
+        }
+
         public async Task<ResponseJson> GetAllInsuredAsync()
         {
             ResponseJson response = new ResponseJson();

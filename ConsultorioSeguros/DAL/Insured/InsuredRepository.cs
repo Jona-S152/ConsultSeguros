@@ -71,6 +71,59 @@ namespace DAL.Insured
             }
         }
 
+        public async Task<Dictionary<bool, List<InsuranceDTO>>> GetAllInsuranceByInsuredAsync(string identification)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                string spName = ProcedureNames.GetInsurancesByInsured;
+
+                Dictionary<bool, List<InsuranceDTO>> dictionaryResult = new Dictionary<bool, List<InsuranceDTO>>();
+
+                List<InsuranceDTO> insurances = new List<InsuranceDTO>();
+
+                using (SqlCommand cmd = new SqlCommand(spName, conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(SPParameters.Identification, identification);
+                    cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
+
+
+                    await cmd.ExecuteNonQueryAsync();
+
+                    bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
+
+                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (!reader.HasRows)
+                        {
+                            dictionaryResult.Add(false, null);
+
+                            return dictionaryResult;
+                        }
+
+                        while (reader.Read())
+                        {
+                            InsuranceDTO insurance = new InsuranceDTO();
+                            insurance.InsuranceName = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
+                            insurance.InsuranceCode = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+                            insurance.InsuredAmount = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                            insurance.Prima = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+
+                            insurances.Add(insurance);
+                        }
+
+                        dictionaryResult.Add(true, insurances);
+
+                        conn.Close();
+
+                        return dictionaryResult;
+                    }
+                }
+            }
+        }
+
         public async Task<Dictionary<bool, List<InsuredDTO>?>> GetAllInsuredAsync()
         {
             Dictionary<bool, List<InsuredDTO>?> result = new Dictionary<bool, List<InsuredDTO>?>();
@@ -87,7 +140,7 @@ namespace DAL.Insured
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows)
                         {
                             List<InsuredDTO> insuredList = new List<InsuredDTO>();
                             while (reader.Read())
@@ -134,7 +187,7 @@ namespace DAL.Insured
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows)
                         {
                             InsuredDTO insured = new InsuredDTO();
                             insured.Id = reader.GetInt32(0);
@@ -175,7 +228,7 @@ namespace DAL.Insured
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows && reader.Read())
                         {
                             InsuredDTO insured = new InsuredDTO();
                             insured.Id = reader.GetInt32(0);
@@ -227,7 +280,7 @@ namespace DAL.Insured
                     {
                         if (result)
                         {
-                            if (reader.Read())
+                            if (reader.HasRows)
                             {
                                 InsuredDTO insured = new InsuredDTO();
                                 insured.Id = reader.GetInt32(0);

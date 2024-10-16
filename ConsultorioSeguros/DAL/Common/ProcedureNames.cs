@@ -15,5 +15,6 @@ namespace DAL.Common
         public const string GetInsuredById = "GetInsuredById";
         public const string GetAllInsureds = "GetAllInsureds";
         public const string DeleteInsured = "DeleteInsured";
+        public const string GetInsurancesByInsured = "GetInsurancesByInsured";
     }
 }

@@ -15,12 +15,14 @@ namespace DAL.Common
         public const string EmptyFields = "Campo(s) vacio(s)";
         public const string SuccessfulRegistration = "Registro exitoso";
         public const string InsuranceList = "Seguros";
+        public const string InsuranceByInsuredList = "Seguros del asegurado";
         public const string Insurance = "Seguro";
         public const string InsuranceNotFound = "Seguro no encontrado";
         public const string SuccessfulUpdating = "Actualización exitosa";
         public const string SuccessfulRemoval = "Eliminación exitosa";
         public const string IdentificationAlreadyExist = "Ya existe un asegurado con esta identificación";
         public const string InsuredNotFound = "Asegurado no encontrado";
+        public const string InsurancesNotFound = "El asegurado no tiene seguros asignados";
         public const string Insured = "Asegurado";
         public const string InsuredList = "Asegurados";
         public const string InsuredListNotFound = "Asegurados no encontrados";

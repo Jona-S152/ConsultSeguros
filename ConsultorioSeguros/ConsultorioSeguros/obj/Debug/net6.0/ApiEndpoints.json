@@ -170,6 +170,22 @@
   },
   {
     "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
+    "Method": "GetInsuranceByInsuredIdentification",
+    "RelativePath": "api/Insured/GetInsuranceByInsured/{identification}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "identification",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
     "Method": "UpdateInsured",
     "RelativePath": "api/Insured/Update/{id}",
     "HttpMethod": "PUT",

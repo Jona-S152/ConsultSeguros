@@ -16,5 +16,6 @@ namespace BLL.Insured
         public Task<ResponseJson> GetAllInsuredAsync();
         public Task<ResponseJson> GetInsuredAsync(int id);
         public Task<ResponseJson> GetInsuredByIdentificationAsync(string identification);
+        public Task<ResponseJson> GetAllInsuranceByInsuredAsync(string identification);
     }
 }
