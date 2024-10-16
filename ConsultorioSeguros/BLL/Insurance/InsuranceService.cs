@@ -66,7 +66,19 @@ namespace BLL.Insurance
 
         public async Task<ResponseJson> GetByCode(string code)
         {
-            return await _insuranceRepository.GetByCode(code);
+            ResponseJson response = await _insuranceRepository.GetByCode(code);
+
+            Entities.Models.Insurance insurance = (Entities.Models.Insurance)response.Data;
+
+            InsuranceDTO insuranceDTO = new InsuranceDTO();
+            insuranceDTO.InsuranceName = insurance.InsuranceName;
+            insuranceDTO.InsuranceCode = insurance.InsuranceCode;
+            insuranceDTO.InsuredAmount = insurance.InsuredAmount;
+            insuranceDTO.Prima = insurance.Prima;
+
+            response.Data = insuranceDTO;
+
+            return response;
         }
 
         public Task<ResponseJson> Insert(InsuranceDTO insuranceDTO)
