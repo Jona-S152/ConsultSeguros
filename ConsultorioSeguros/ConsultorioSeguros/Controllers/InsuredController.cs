@@ -85,5 +85,15 @@ namespace ConsultorioSeguros.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost(ApiRoutes.ApiRoutes.Insured.UploadFile)]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            ResponseJson response = await _insuredService.UploadInsuredsAsync(file);
+
+            if (response.Error) return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

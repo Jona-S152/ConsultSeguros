@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace BLL.Insured
         public Task<ResponseJson> GetInsuredAsync(int id);
         public Task<ResponseJson> GetInsuredByIdentificationAsync(string identification);
         public Task<ResponseJson> GetAllInsuranceByInsuredAsync(string identification);
+        public Task<ResponseJson> UploadInsuredsAsync(IFormFile formFile);
     }
 }

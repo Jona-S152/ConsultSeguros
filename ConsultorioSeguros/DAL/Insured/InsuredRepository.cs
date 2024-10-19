@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -304,6 +305,32 @@ namespace DAL.Insured
 
                 }
             }
+        }
+
+        public async Task<bool> UploadInsuredsAsync(DataTable? insureds)
+        {
+            if (insureds == null) return false;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(conn))
+                {
+                    conn.Open();
+                    bulkCopy.DestinationTableName = insureds.TableName;
+
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsured.Identification, ColumnNamesInsured.Identification);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsured.Name, ColumnNamesInsured.Name);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsured.PhoneNumber, ColumnNamesInsured.PhoneNumber);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsured.Age, ColumnNamesInsured.Age);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsured.Status, ColumnNamesInsured.Status);
+
+                    await bulkCopy.WriteToServerAsync(insureds);
+
+                    conn.Close();
+                }
+            }
+
+            return true;
         }
     }
 }

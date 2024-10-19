@@ -26,5 +26,8 @@ namespace DAL.Common
         public const string Insured = "Asegurado";
         public const string InsuredList = "Asegurados";
         public const string InsuredListNotFound = "Asegurados no encontrados";
+        public const string OutOfLimitFileLength = "El archivo excede el límite de 10MB";
+        public const string NotSupportedFormatFile = "Formato de archivo no compatible.";
+        public const string EmptyFile = "El archivo se encuentra vacio";
     }
 }

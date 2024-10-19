@@ -1,6 +1,7 @@
 ﻿using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,6 @@ namespace DAL.Insured
         public Task<Dictionary<bool, InsuredDTO>> GetInsuredAsync(int id);
         public Task<Dictionary<bool, InsuredDTO>> GetInsuredByIdentificationAsync(string identification);
         public Task<Dictionary<bool, List<InsuranceDTO>>> GetAllInsuranceByInsuredAsync(string identification);
+        public Task<bool> UploadInsuredsAsync(DataTable? insureds);
     }
 }

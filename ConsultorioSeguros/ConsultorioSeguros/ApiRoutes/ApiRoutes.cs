@@ -21,7 +21,8 @@
             public const string GetById = "GetById/{id}";
             public const string GetAll = "GetAll";
             public const string DeleteById = "DeleteInsured/{id}";
-            public const string GetAllInsurancesByInsured = "GetInsuranceByInsured/{identification}"
+            public const string GetAllInsurancesByInsured = "GetInsuranceByInsured/{identification}";
+            public const string UploadFile = "UploadFile";
         }
     }
 }
