@@ -16,7 +16,7 @@ namespace ConsultorioSeguros.Controllers
             _insuredService = service;
         }
 
-        [HttpPost("Add")]
+        [HttpPost(ApiRoutes.ApiRoutes.Insured.Add)]
         public async Task<IActionResult> InsertInsured(InsuredDTO insuredDTO)
         {
             ResponseJson response = await _insuredService.AddInsuredAsync(insuredDTO);
@@ -26,7 +26,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpPut("Update/{id}")]
+        [HttpPut(ApiRoutes.ApiRoutes.Insured.UpdateById)]
         public async Task<IActionResult> UpdateInsured(int id, InsuredDTO insuredDTO)
         {
             ResponseJson response = await _insuredService.UpdateInsuredAsync(id, insuredDTO);
@@ -36,7 +36,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetByIdentification/{identification}")]
+        [HttpGet(ApiRoutes.ApiRoutes.Insured.GetByIdentification)]
         public async Task<IActionResult> GetInsuredByIdentification(string identification)
         {
             ResponseJson response = await _insuredService.GetInsuredByIdentificationAsync(identification);
@@ -46,7 +46,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet(ApiRoutes.ApiRoutes.Insured.GetById)]
         public async Task<IActionResult> GetInsuredById(int id)
         {
             ResponseJson response = await _insuredService.GetInsuredAsync(id);
@@ -56,7 +56,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet(ApiRoutes.ApiRoutes.Insured.GetAll)]
         public async Task<IActionResult> GetAllInsureds()
         {
             ResponseJson response = await _insuredService.GetAllInsuredAsync();
@@ -66,7 +66,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("DeleteInsured/{id}")]
+        [HttpDelete(ApiRoutes.ApiRoutes.Insured.DeleteById)]
         public async Task<IActionResult> DeleteInsured(int id)
         {
             ResponseJson response = await _insuredService.DeleteInsuredAsync(id);
@@ -76,7 +76,7 @@ namespace ConsultorioSeguros.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetInsuranceByInsured/{identification}")]
+        [HttpGet(ApiRoutes.ApiRoutes.Insured.GetAllInsurancesByInsured)]
         public async Task<IActionResult> GetInsuranceByInsuredIdentification(string identification)
         {
             ResponseJson response = await _insuredService.GetAllInsuranceByInsuredAsync(identification);

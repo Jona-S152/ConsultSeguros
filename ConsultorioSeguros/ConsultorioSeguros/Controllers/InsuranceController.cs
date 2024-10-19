@@ -76,5 +76,15 @@ namespace ConsultorioSeguros.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet(ApiRoutes.ApiRoutes.Insurance.GetAllInsuredsByInsurance)]
+        public async Task<IActionResult> GetAllInsuredsByInsurance(string code)
+        {
+            ResponseJson response = await _insuranceService.GetAllInsuredByInsurance(code);
+
+            if (response.Error) return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

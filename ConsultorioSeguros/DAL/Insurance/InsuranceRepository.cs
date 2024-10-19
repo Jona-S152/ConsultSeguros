@@ -1,6 +1,7 @@
 ﻿using DAL.Common;
 using DAL.Context;
 using Entities;
+using Entities.DTOs;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -61,6 +62,39 @@ namespace DAL.Repositories
                 List<Insurance> insurances = await _context.Insurances.Where(i => i.Status == true).ToListAsync();
 
                 return new ResponseJson() { Message = MessageResponse.InsuranceList, Data = insurances, Error = false };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
+            }
+        }
+
+        public async Task<ResponseJson> GetAllInsuredByInsurance(string code)
+        {
+            try
+            {
+                List<InsuredDTO> insureds = await (from insured in _context.Insureds
+                                                   join insuranceInsured in _context.InsuranceInsureds
+                                                   on insured.Id equals insuranceInsured.IdInsured
+                                                   join insurance in _context.Insurances
+                                                   on insuranceInsured.IdInsurance equals insurance.Id
+                                                   where insured.Status == true
+                                                   && insurance.Status == true
+                                                   && insuranceInsured.Status == true
+                                                   && insurance.InsuranceCode == code
+                                                   select new InsuredDTO
+                                                   {
+                                                       Id = insured.Id,
+                                                       Identification = insured.Identification,
+                                                       InsuredName = insured.InsuredName,
+                                                       PhoneNumber = insured.PhoneNumber,
+                                                       Age = insured.Age ?? 0
+                                                   }).ToListAsync();
+
+                if (insureds.Count == 0) return new ResponseJson() { Message = MessageResponse.InsuredListNotFound, Data = null, Error = true };
+
+                return new ResponseJson() { Message = MessageResponse.InsuredList, Data = insureds, Error = false };
+
             }
             catch (Exception ex)
             {

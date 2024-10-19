@@ -64,6 +64,11 @@ namespace BLL.Insurance
             return response;
         }
 
+        public async Task<ResponseJson> GetAllInsuredByInsurance(string code)
+        {
+            return await _insuranceRepository.GetAllInsuredByInsurance(code);
+        }
+
         public async Task<ResponseJson> GetByCode(string code)
         {
             ResponseJson response = await _insuranceRepository.GetByCode(code);

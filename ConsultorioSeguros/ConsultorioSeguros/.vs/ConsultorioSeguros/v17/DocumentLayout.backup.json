@@ -1,32 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\",
+  "WorkspaceRootPath": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\dal\\insured\\insuredrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|e:\\consultseguros\\consultorioseguros\\consultorioseguros\\controllers\\insurancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|solutionrelative:controllers\\insurancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\consultorioseguros\\controllers\\insuredcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|e:\\consultseguros\\consultorioseguros\\consultorioseguros\\controllers\\insuredcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|solutionrelative:controllers\\insuredcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{26EF4627-3221-44C6-B457-19D7B5135E1F}|..\\BLL\\BLL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\bll\\insured\\insuredservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|e:\\consultseguros\\consultorioseguros\\consultorioseguros\\apiroutes\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|solutionrelative:apiroutes\\apiroutes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\dal\\common\\procedurenames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\dal\\common\\messageresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{26EF4627-3221-44C6-B457-19D7B5135E1F}|..\\BLL\\BLL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\bll\\insured\\iinsuredservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\dal\\insured\\iinsuredrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|c:\\users\\viamatica\\desktop\\consultseguros\\consultorioseguros\\consultorioseguros\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{83909992-0B6D-458B-B5D6-9C1F4DBCC092}|ConsultorioSeguros.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{244CA581-003F-47D2-A9A1-017633AD90FD}|..\\DAL\\DAL.csproj|e:\\consultseguros\\consultorioseguros\\dal\\insurance\\insurancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -44,106 +33,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MessageResponse.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\MessageResponse.cs",
-              "RelativeDocumentMoniker": "..\\DAL\\Common\\MessageResponse.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\MessageResponse.cs",
-              "RelativeToolTip": "..\\DAL\\Common\\MessageResponse.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAewBcAAAArAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "InsuranceRepository.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insurance\\InsuranceRepository.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Insurance\\InsuranceRepository.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insurance\\InsuranceRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Insurance\\InsuranceRepository.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAIwEsAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T18:48:58.979Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "InsuredService.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\Insured\\InsuredService.cs",
-              "RelativeDocumentMoniker": "..\\BLL\\Insured\\InsuredService.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\Insured\\InsuredService.cs",
-              "RelativeToolTip": "..\\BLL\\Insured\\InsuredService.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAgwJwAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T14:22:21.164Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InsuredRepository.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
-              "RelativeDocumentMoniker": "..\\DAL\\Insured\\InsuredRepository.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
-              "RelativeToolTip": "..\\DAL\\Insured\\InsuredRepository.cs",
-              "ViewState": "AgIAAOEAAAAAAAAAAAAAAOUAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T14:17:37.123Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IInsuredRepository.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\IInsuredRepository.cs",
-              "RelativeDocumentMoniker": "..\\DAL\\Insured\\IInsuredRepository.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\IInsuredRepository.cs",
-              "RelativeToolTip": "..\\DAL\\Insured\\IInsuredRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T16:49:04.119Z",
+              "WhenOpened": "2024-10-19T02:42:55.633Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "InsuredController.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuredController.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuredController.cs",
               "RelativeDocumentMoniker": "Controllers\\InsuredController.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuredController.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuredController.cs",
               "RelativeToolTip": "Controllers\\InsuredController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCkAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAmwE4AAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T15:28:28.547Z",
+              "WhenOpened": "2024-10-19T02:38:39.769Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProcedureNames.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\ProcedureNames.cs",
-              "RelativeDocumentMoniker": "..\\DAL\\Common\\ProcedureNames.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Common\\ProcedureNames.cs",
-              "RelativeToolTip": "..\\DAL\\Common\\ProcedureNames.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAMwA0AAABUAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ApiRoutes.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\ApiRoutes\\ApiRoutes.cs",
+              "RelativeDocumentMoniker": "ApiRoutes\\ApiRoutes.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\ApiRoutes\\ApiRoutes.cs",
+              "RelativeToolTip": "ApiRoutes\\ApiRoutes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T17:18:44.207Z",
+              "WhenOpened": "2024-10-19T02:37:50.171Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IInsuredService.cs",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\Insured\\IInsuredService.cs",
-              "RelativeDocumentMoniker": "..\\BLL\\Insured\\IInsuredService.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\Insured\\IInsuredService.cs",
-              "RelativeToolTip": "..\\BLL\\Insured\\IInsuredService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "InsuranceController.cs",
+              "DocumentMoniker": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuranceController.cs",
+              "RelativeDocumentMoniker": "Controllers\\InsuranceController.cs",
+              "ToolTip": "E:\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuranceController.cs",
+              "RelativeToolTip": "Controllers\\InsuranceController.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAswE8AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T19:22:46.418Z",
+              "WhenOpened": "2024-10-19T02:18:11.835Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-16T15:21:06.657Z"
             }
           ]
         },
@@ -166,6 +104,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
             }
           ]
         },

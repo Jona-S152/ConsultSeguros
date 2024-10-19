@@ -16,5 +16,6 @@ namespace BLL.Insurance
         public Task<ResponseJson> Get(int id);
         public Task<ResponseJson> GetAll();
         public Task<ResponseJson> GetByCode(string code);
+        public Task<ResponseJson> GetAllInsuredByInsurance(string code);
     }
 }

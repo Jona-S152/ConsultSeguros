@@ -59,6 +59,22 @@
   },
   {
     "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
+    "Method": "GetAllInsuredsByInsurance",
+    "RelativePath": "api/Insurance/GetAllInsuredsByInsurance/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuranceController",
     "Method": "GetByCode",
     "RelativePath": "api/Insurance/GetByCode/{code}",
     "HttpMethod": "GET",
