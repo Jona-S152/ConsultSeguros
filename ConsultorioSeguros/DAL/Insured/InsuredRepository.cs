@@ -188,7 +188,7 @@ namespace DAL.Insured
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
+                        if (reader.HasRows && reader.Read())
                         {
                             InsuredDTO insured = new InsuredDTO();
                             insured.Id = reader.GetInt32(0);

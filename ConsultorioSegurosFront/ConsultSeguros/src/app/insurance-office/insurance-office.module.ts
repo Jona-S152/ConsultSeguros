@@ -2,10 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InsuranceOfficeRoutingModule } from './insurance-office-routing.module';
-import { InsurancePageComponent } from './insurance-page/insurance-page.component';
-import { InsuredPageComponent } from './insured-page/insured-page.component';
-import { ListInsurancePageComponent } from './list-insurance-page/list-insurance-page.component';
-import { ListInsuredPageComponent } from './list-insured-page/list-insured-page.component';
+import { InsurancePageComponent } from './pages/insurance-page/insurance-page.component';
+import { InsuredPageComponent } from './pages/insured-page/insured-page.component';
+import { ListInsurancePageComponent } from './pages/list-insurance-page/list-insurance-page.component';
+import { ListInsuredPageComponent } from './pages/list-insured-page/list-insured-page.component';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { MaterialModule } from '../material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewInsuranceComponent } from './components/new-insurance/new-insurance.component';
 
 
 @NgModule({
@@ -13,11 +17,15 @@ import { ListInsuredPageComponent } from './list-insured-page/list-insured-page.
     InsurancePageComponent,
     InsuredPageComponent,
     ListInsurancePageComponent,
-    ListInsuredPageComponent
+    ListInsuredPageComponent,
+    LayoutPageComponent,
+    NewInsuranceComponent
   ],
   imports: [
     CommonModule,
-    InsuranceOfficeRoutingModule
+    InsuranceOfficeRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class InsuranceOfficeModule { }

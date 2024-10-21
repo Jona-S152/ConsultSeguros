@@ -1,0 +1,32 @@
+<div class="col-6 pl-5">
+    <br>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Agregar seguro</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <br>
+            <mat-form-field appearance="outline" style="margin-right: 30px;">
+                <mat-label>Nombre</mat-label>
+                <input matInput/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-right: 30px;">
+                <mat-label>Código</mat-label>
+                <input matInput/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-right: 30px;">
+                <mat-label>Suma asegurada</mat-label>
+                <input type="number" max="10000" min="0" matInput/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-right: 30px;">
+                <mat-label>Prima</mat-label>
+                <input type="number" max="10000" min="0" matInput/>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-footer>
+            <button color="white" mat-fab extended><mat-icon>save</mat-icon> Guardar cambios </button>
+        </mat-card-footer>
+        <br>
+    </mat-card>
+  </div>

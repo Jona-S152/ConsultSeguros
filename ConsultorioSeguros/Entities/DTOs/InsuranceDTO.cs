@@ -8,6 +8,7 @@ namespace Entities.DTOs
 {
     public class InsuranceDTO
     {
+        public int? Id { get; set; }
         public string? InsuranceName { get; set; }
         public string? InsuranceCode { get; set; }
         public decimal? InsuredAmount { get; set; }

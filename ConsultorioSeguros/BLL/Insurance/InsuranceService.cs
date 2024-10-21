@@ -32,6 +32,7 @@ namespace BLL.Insurance
             Entities.Models.Insurance insurance = (Entities.Models.Insurance)response.Data;
 
             InsuranceDTO insuranceDTO = new InsuranceDTO();
+            insuranceDTO.Id = insurance.Id;
             insuranceDTO.InsuranceName = insurance.InsuranceName;
             insuranceDTO.InsuranceCode = insurance.InsuranceCode;
             insuranceDTO.InsuredAmount = insurance.InsuredAmount;
@@ -53,7 +54,7 @@ namespace BLL.Insurance
             foreach (Entities.Models.Insurance insurance in insurances)
             {
                 InsuranceDTO insuranceDTO = new InsuranceDTO();
-
+                insuranceDTO.Id = insurance.Id;
                 insuranceDTO.InsuranceName = insurance.InsuranceName;
                 insuranceDTO.InsuranceCode = insurance.InsuranceCode;
                 insuranceDTO.InsuredAmount = insurance.InsuredAmount;
@@ -79,6 +80,7 @@ namespace BLL.Insurance
             Entities.Models.Insurance insurance = (Entities.Models.Insurance)response.Data;
 
             InsuranceDTO insuranceDTO = new InsuranceDTO();
+            insuranceDTO.Id = insurance.Id;
             insuranceDTO.InsuranceName = insurance.InsuranceName;
             insuranceDTO.InsuranceCode = insurance.InsuranceCode;
             insuranceDTO.InsuredAmount = insurance.InsuredAmount;
@@ -114,6 +116,7 @@ namespace BLL.Insurance
             Entities.Models.Insurance insuranseUpdated = (Entities.Models.Insurance)response.Data;
 
             InsuranceDTO insuranceDTOUpdated = new InsuranceDTO();
+            insuranceDTOUpdated.Id = insuranseUpdated.Id;
             insuranceDTOUpdated.InsuranceName = insuranseUpdated.InsuranceName;
             insuranceDTOUpdated.InsuranceCode = insuranseUpdated.InsuranceCode;
             insuranceDTOUpdated.InsuredAmount = insuranseUpdated.InsuredAmount;

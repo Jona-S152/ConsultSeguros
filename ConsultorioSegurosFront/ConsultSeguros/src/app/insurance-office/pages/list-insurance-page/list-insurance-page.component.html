@@ -1,1 +1,80 @@
-<p>list-insurance-page works!</p>
+<ng-template #divLoading>
+    <div style="display: flex; justify-content: center;">
+      <div class="col-3">
+        <img src="assets/tube-spinner.svg" alt="">
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #isLoading>
+    <img mat-card-image  src="assets/tube-spinner.svg">
+  </ng-template>
+
+<div *ngIf="hasLoaded; else divLoading" class="grid">
+    <app-new-insurance></app-new-insurance>
+    <div class="col-12 p-10">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Seguros</mat-card-title>
+            </mat-card-header>
+            
+            <mat-divider></mat-divider>
+
+            <mat-card-content>
+                <table mat-table [dataSource]="insurances" class="mat-elevation-z8">
+                    
+                    <ng-container matColumnDef="Nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-form-field>
+                            <input [value]="element.insuranceName" matInput [disabled]="selectedElement !== element">
+                        </mat-form-field>
+                    </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="Código">
+                    <th mat-header-cell *matHeaderCellDef> Código </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-form-field>
+                            <input [value]="element.insuranceCode" matInput [disabled]="selectedElement !== element">
+                        </mat-form-field>
+                    </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="Suma asegurada">
+                    <th mat-header-cell *matHeaderCellDef> Suma asegurada </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-form-field>
+                            <input [value]="element.insuredAmount" matInput [disabled]="selectedElement !== element">
+                        </mat-form-field>
+                    </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="Prima">
+                    <th mat-header-cell *matHeaderCellDef> Prima </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-form-field>
+                            <input [value]="element.prima" matInput [disabled]="selectedElement !== element">
+                        </mat-form-field>
+                    </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Acciones">
+                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-mini-fab color="white" style="color: green;" (click)="ChangeEditSave(element)"><mat-icon> {{ selectedElement === element ? 'save' : 'edit' }} </mat-icon></button>
+                            <button mat-mini-fab color="white" style="color: red;" (click)="deleteInsurance(element.id)"><mat-icon>delete</mat-icon></button>
+                        </td>
+                    </ng-container>
+                
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              
+                </table>
+                <mat-paginator [length]="insurances.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>
