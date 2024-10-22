@@ -11,7 +11,7 @@ namespace Entities.DTOs
         public int? Id { get; set; }
         public string? InsuranceName { get; set; }
         public string? InsuranceCode { get; set; }
-        public decimal? InsuredAmount { get; set; }
+        public decimal? InsuranceAmount { get; set; }
         public decimal? Prima { get; set; }
     }
 }

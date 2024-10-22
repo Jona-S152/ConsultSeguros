@@ -10,6 +10,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewInsuranceComponent } from './components/new-insurance/new-insurance.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NewInsuranceComponent } from './components/new-insurance/new-insurance.
     CommonModule,
     InsuranceOfficeRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class InsuranceOfficeModule { }

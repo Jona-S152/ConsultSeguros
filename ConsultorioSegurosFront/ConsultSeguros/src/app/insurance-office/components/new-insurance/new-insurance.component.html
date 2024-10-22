@@ -6,26 +6,28 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
-            <br>
-            <mat-form-field appearance="outline" style="margin-right: 30px;">
-                <mat-label>Nombre</mat-label>
-                <input matInput/>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="margin-right: 30px;">
-                <mat-label>Código</mat-label>
-                <input matInput/>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="margin-right: 30px;">
-                <mat-label>Suma asegurada</mat-label>
-                <input type="number" max="10000" min="0" matInput/>
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="margin-right: 30px;">
-                <mat-label>Prima</mat-label>
-                <input type="number" max="10000" min="0" matInput/>
-            </mat-form-field>
+            <form [formGroup]="insuranceForm">
+                <br>
+                <mat-form-field appearance="outline" style="margin-right: 30px;">
+                    <mat-label>Nombre</mat-label>
+                    <input required formControlName="insuranceName" matInput/>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="margin-right: 30px;">
+                    <mat-label>Código</mat-label>
+                    <input required formControlName="insuranceCode" matInput/>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="margin-right: 30px;">
+                    <mat-label>Suma asegurada</mat-label>
+                    <input required formControlName="insuranceAmount" type="number" max="10000" min="0" matInput/>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="margin-right: 30px;">
+                    <mat-label>Prima</mat-label>
+                    <input required formControlName="prima" type="number" max="10000" min="0" matInput/>
+                </mat-form-field>
+            </form>
         </mat-card-content>
         <mat-card-footer>
-            <button style="margin-left: 15px" color="white" mat-fab extended><mat-icon>save</mat-icon> Guardar cambios </button>
+            <button (click)="addInsurance()" style="margin-left: 15px" color="white" mat-fab extended><mat-icon>save</mat-icon> Guardar cambios </button>
         </mat-card-footer>
         <br>
     </mat-card>

@@ -109,7 +109,7 @@ namespace DAL.Insured
                             InsuranceDTO insurance = new InsuranceDTO();
                             insurance.InsuranceName = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                             insurance.InsuranceCode = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
-                            insurance.InsuredAmount = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                            insurance.InsuranceAmount = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
                             insurance.Prima = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
 
                             insurances.Add(insurance);

@@ -35,7 +35,7 @@ namespace BLL.Insurance
             insuranceDTO.Id = insurance.Id;
             insuranceDTO.InsuranceName = insurance.InsuranceName;
             insuranceDTO.InsuranceCode = insurance.InsuranceCode;
-            insuranceDTO.InsuredAmount = insurance.InsuredAmount;
+            insuranceDTO.InsuranceAmount = insurance.InsuredAmount;
             insuranceDTO.Prima = insurance.Prima;
 
             response.Data = insuranceDTO;
@@ -57,7 +57,7 @@ namespace BLL.Insurance
                 insuranceDTO.Id = insurance.Id;
                 insuranceDTO.InsuranceName = insurance.InsuranceName;
                 insuranceDTO.InsuranceCode = insurance.InsuranceCode;
-                insuranceDTO.InsuredAmount = insurance.InsuredAmount;
+                insuranceDTO.InsuranceAmount = insurance.InsuredAmount;
                 insuranceDTO.Prima = insurance.Prima;
 
                 insurancesDTO.Add(insuranceDTO);
@@ -79,14 +79,17 @@ namespace BLL.Insurance
 
             Entities.Models.Insurance insurance = (Entities.Models.Insurance)response.Data;
 
-            InsuranceDTO insuranceDTO = new InsuranceDTO();
-            insuranceDTO.Id = insurance.Id;
-            insuranceDTO.InsuranceName = insurance.InsuranceName;
-            insuranceDTO.InsuranceCode = insurance.InsuranceCode;
-            insuranceDTO.InsuredAmount = insurance.InsuredAmount;
-            insuranceDTO.Prima = insurance.Prima;
+            if (response.Data != null)
+            {
+                InsuranceDTO insuranceDTO = new InsuranceDTO();
+                insuranceDTO.Id = insurance.Id;
+                insuranceDTO.InsuranceName = insurance.InsuranceName;
+                insuranceDTO.InsuranceCode = insurance.InsuranceCode;
+                insuranceDTO.InsuranceAmount = insurance.InsuredAmount;
+                insuranceDTO.Prima = insurance.Prima;
 
-            response.Data = insuranceDTO;
+                response.Data = insuranceDTO;
+            }
 
             return response;
         }
@@ -96,7 +99,7 @@ namespace BLL.Insurance
             Entities.Models.Insurance insurance = new Entities.Models.Insurance();
             insurance.InsuranceCode = insuranceDTO.InsuranceCode;
             insurance.InsuranceName = insuranceDTO.InsuranceName;
-            insurance.InsuredAmount = insuranceDTO.InsuredAmount;
+            insurance.InsuredAmount = insuranceDTO.InsuranceAmount;
             insurance.Prima = insuranceDTO.Prima;
             insurance.Status = true;
 
@@ -108,7 +111,7 @@ namespace BLL.Insurance
             Entities.Models.Insurance insurance = new Entities.Models.Insurance();
             insurance.InsuranceCode = insuranceDTO.InsuranceCode;
             insurance.InsuranceName = insuranceDTO.InsuranceName;
-            insurance.InsuredAmount = insuranceDTO.InsuredAmount;
+            insurance.InsuredAmount = insuranceDTO.InsuranceAmount;
             insurance.Prima = insuranceDTO.Prima;
 
             ResponseJson response = await _insuranceRepository.Update(id, insurance);
@@ -119,7 +122,7 @@ namespace BLL.Insurance
             insuranceDTOUpdated.Id = insuranseUpdated.Id;
             insuranceDTOUpdated.InsuranceName = insuranseUpdated.InsuranceName;
             insuranceDTOUpdated.InsuranceCode = insuranseUpdated.InsuranceCode;
-            insuranceDTOUpdated.InsuredAmount = insuranseUpdated.InsuredAmount;
+            insuranceDTOUpdated.InsuranceAmount = insuranseUpdated.InsuredAmount;
             insuranceDTOUpdated.Prima = insuranseUpdated.Prima;
 
             response.Data = insuranceDTOUpdated;

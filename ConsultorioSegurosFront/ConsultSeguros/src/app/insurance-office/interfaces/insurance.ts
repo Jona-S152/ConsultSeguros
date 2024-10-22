@@ -8,6 +8,6 @@ export interface Insurance {
     id:            number;
     insuranceName: string;
     insuranceCode: string;
-    insuredAmount: number;
+    insuranceAmount: number;
     prima:         number;
 }

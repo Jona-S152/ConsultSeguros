@@ -122,7 +122,7 @@ namespace DAL.Repositories
         {
             try
             {
-                Insurance insuranceExist = await _context.Insurances.FirstOrDefaultAsync(i => i.InsuranceCode == insurance.InsuranceCode && i.InsuranceName == insurance.InsuranceName && i.Status == true);
+                Insurance insuranceExist = await _context.Insurances.FirstOrDefaultAsync(i => (i.InsuranceCode == insurance.InsuranceCode || i.InsuranceName == insurance.InsuranceName) && i.Status == true);
 
                 if (insuranceExist != null) return new ResponseJson() { Message = MessageResponse.InsuranceAlredyExist, Data = null, Error = true };
 
