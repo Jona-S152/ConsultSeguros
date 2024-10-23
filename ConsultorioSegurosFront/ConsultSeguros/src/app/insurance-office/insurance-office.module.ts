@@ -11,6 +11,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewInsuranceComponent } from './components/new-insurance/new-insurance.component';
 import { SharedModule } from '../shared/shared.module';
+import { NewInsuredComponent } from './components/new-insured/new-insured.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from '../shared/shared.module';
     ListInsurancePageComponent,
     ListInsuredPageComponent,
     LayoutPageComponent,
-    NewInsuranceComponent
+    NewInsuranceComponent,
+    NewInsuredComponent
   ],
   imports: [
     CommonModule,

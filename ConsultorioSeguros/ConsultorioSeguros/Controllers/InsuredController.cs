@@ -95,5 +95,15 @@ namespace ConsultorioSeguros.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("AssignInsurance")]
+        public async Task<IActionResult> AssignInsurance([FromBody] string insurancesIds)
+        {
+            ResponseJson response = await _insuredService.AssignInsuanceToInsuredAsync(insurancesIds);
+
+            if (response.Error) return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

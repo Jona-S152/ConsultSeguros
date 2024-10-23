@@ -9,5 +9,6 @@ namespace BLL.Common
     public class TableNames
     {
         public const string Insured = "Insured";
+        public const string InsuranceInsured = "InsuranceInsured";
     }
 }

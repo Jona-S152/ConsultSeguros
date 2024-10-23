@@ -18,5 +18,7 @@ namespace DAL.Insured
         public Task<Dictionary<bool, InsuredDTO>> GetInsuredByIdentificationAsync(string identification);
         public Task<Dictionary<bool, List<InsuranceDTO>>> GetAllInsuranceByInsuredAsync(string identification);
         public Task<bool> UploadInsuredsAsync(DataTable? insureds);
+        public Task<int?> GetInsuredIdAsync();
+        public Task<bool> AssignInsuanceToInsuredAsync(DataTable insurances);
     }
 }

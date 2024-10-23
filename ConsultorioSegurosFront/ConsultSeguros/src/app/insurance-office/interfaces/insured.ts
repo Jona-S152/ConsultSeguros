@@ -1,3 +1,5 @@
+import { Insurance } from "./insurance";
+
 export interface ResponseJSON {
     message: string;
     data:    Insured[];
@@ -10,4 +12,9 @@ export interface Insured {
     insuredName:    string;
     phoneNumber:    string;
     age:            number;
+}
+
+export interface InsuredDTO {
+    insured:        Insured
+    insurances:     Insurance[];
 }

@@ -128,6 +128,22 @@
   },
   {
     "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
+    "Method": "AssignInsurance",
+    "RelativePath": "api/Insured/AssignInsurance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "insurancesIds",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
     "Method": "DeleteInsured",
     "RelativePath": "api/Insured/DeleteInsured/{id}",
     "HttpMethod": "DELETE",

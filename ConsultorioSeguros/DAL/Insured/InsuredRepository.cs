@@ -1,5 +1,6 @@
 ﻿using DAL.Common;
 using Entities.DTOs;
+using Entities.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System;
@@ -45,6 +46,54 @@ namespace DAL.Insured
                     return result;
                 }
             }
+        }
+
+        public async Task<int?> GetInsuredIdAsync()
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 Id FROM Insured ORDER BY Id DESC", conn))
+                {
+                    conn.Open();
+                    cmd.CommandType = CommandType.Text;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return (int)reader.GetInt32(0);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        public async Task<bool> AssignInsuanceToInsuredAsync(DataTable insurances)
+        {
+            if (insurances == null) return false;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(conn))
+                {
+                    conn.Open();
+                    bulkCopy.DestinationTableName = insurances.TableName;
+
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Id_Insured, ColumnNamesInsuranceInsured.Id_Insured);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Id_Insurance, ColumnNamesInsuranceInsured.Id_Insurance);
+                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Status, ColumnNamesInsuranceInsured.Status);
+
+                    await bulkCopy.WriteToServerAsync(insurances);
+
+                    conn.Close();
+                }
+            }
+
+            return true;
         }
 
         public async Task<bool> DeleteInsuredAsync(int id)
@@ -107,6 +156,7 @@ namespace DAL.Insured
                         while (reader.Read())
                         {
                             InsuranceDTO insurance = new InsuranceDTO();
+                            insurance.Id = reader.GetInt32(0);
                             insurance.InsuranceName = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                             insurance.InsuranceCode = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
                             insurance.InsuranceAmount = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
@@ -281,7 +331,7 @@ namespace DAL.Insured
                     {
                         if (result)
                         {
-                            if (reader.HasRows)
+                            if (reader.HasRows && reader.Read())
                             {
                                 InsuredDTO insured = new InsuredDTO();
                                 insured.Id = reader.GetInt32(0);
@@ -332,5 +382,6 @@ namespace DAL.Insured
 
             return true;
         }
+
     }
 }

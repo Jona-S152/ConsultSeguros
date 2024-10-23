@@ -310,10 +310,56 @@ namespace BLL.Insured
                     continue;
                 }
 
+                if (columnName == Common.ColumnNamesInsuranceInsured.Id_Insurance || columnName == Common.ColumnNamesInsuranceInsured.Id_Insured)
+                {
+                    dt.Columns.Add(columnName, typeof(int));
+                    continue;
+                }
+
                 dt.Columns.Add(columnName, typeof(string));
             }
 
             return dt;
+        }
+
+        public async Task<ResponseJson> AssignInsuanceToInsuredAsync(string insurancesIds)
+        {
+            try
+            {
+                int? id = await _insuredRepository.GetInsuredIdAsync();
+
+                if (id != null)
+                {
+                    string[] columnNames = { Common.ColumnNamesInsuranceInsured.Id_Insurance, Common.ColumnNamesInsuranceInsured.Id_Insured, Common.ColumnNamesInsuranceInsured.Status };
+
+                    DataTable table = GetFormatDatatable(TableNames.InsuranceInsured, columnNames);
+
+                    string[] insurances = insurancesIds.Split(',');
+
+                    foreach (string ins in insurances)
+                    {
+                        DataRow dataRow = table.NewRow();
+
+                        dataRow[0] = int.Parse(ins.Trim());
+                        dataRow[1] = id;
+                        dataRow[2] = true;
+
+                        table.Rows.Add(dataRow);
+                    }
+
+                    bool isSuccesful = await _insuredRepository.AssignInsuanceToInsuredAsync(table);
+
+                    return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulRegistration, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
+                }
+                else
+                {
+                    return new ResponseJson() { Message = "No se encontró al asegurado", Data = null, Error = true };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
+            }
         }
     }
 }

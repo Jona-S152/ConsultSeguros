@@ -77,19 +77,18 @@ export class ListInsurancePageComponent {
           .subscribe(
             {
               next: (res) => {
-                if (res.error){
-                  Swal.fire({
-                    icon: 'error',
-                    text: res.message
-                  })
-                } else {
-                  this.insuranceService.updateInsuranceToList(this.currentInsuranceEditForm);
-                  Swal.fire({
-                    icon: 'success',
-                    text: res.message
-                  })
-                }
+                this.insuranceService.updateInsuranceToList(this.currentInsuranceEditForm);
+                Swal.fire({
+                  icon: 'success',
+                  text: res.message
+                })
                 this.selectedElement = null;
+              },
+              error: (err) => {
+                Swal.fire({
+                  icon: 'error',
+                  text: err.message
+                })
               }
             }
           )

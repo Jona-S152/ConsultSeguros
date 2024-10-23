@@ -29,6 +29,13 @@ export class InsuranceService {
       )
   }
 
+  getAllInsurancesByInsured( identification : string ) : Observable<ResponseJSON> {
+    return this.http.get<ResponseJSON>(`${this.baseUrl}/api/Insured/GetInsuranceByInsured/${ identification }`)
+      .pipe(
+        catchError( err => throwError( () => err.error ))
+      )
+  }
+
   setCopyInsuranceList(){
     this.originalInsuranceList = [...this.insuranceList]
   }
@@ -75,6 +82,7 @@ export class InsuranceService {
   }
 
   updateInsurance( insurance : Insurance ) : Observable<ResponseJSON>{
+    console.log(insurance)
     return this.http.put<ResponseJSON>(`${this.baseUrl}/api/Insurance/Update/${insurance.id}`, insurance)
       .pipe(
         catchError( err => throwError( () => err.error ))
@@ -82,15 +90,8 @@ export class InsuranceService {
   }
 
   searchInsuranceByCodeLst( code : string ){
-    
-    if (code === '') {
-      this.insuranceList = [...this.originalInsuranceList];
-      this.myInsuranceList.next(this.insuranceList);
-    }
-    else {
-      this.insuranceList = this.insuranceList.filter( i => i.insuranceCode.toUpperCase().includes(code.toUpperCase()))
-      this.myInsuranceList.next(this.insuranceList);
-    }
+    this.insuranceList = this.originalInsuranceList.filter( i => i.insuranceCode.toUpperCase().startsWith(code.toUpperCase()))
+    this.myInsuranceList.next(this.insuranceList);
   }
 
   searchInsuranceByCode( code : string ) : Observable<ResponseJSON> {
