@@ -2,7 +2,6 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Insured, InsuredDTO, ResponseJSON } from '../../interfaces/insured';
 import { MatTableDataSource } from '@angular/material/table';
 import { InsuredService } from '../../services/insured.service';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
@@ -17,45 +16,36 @@ import { Insurance } from '../../interfaces/insurance';
 export class ListInsuredPageComponent implements OnInit{
   private insuredService = inject(InsuredService);
   private insuranceService = inject(InsuranceService)
-  private route = inject(Router);
   
   public response? : ResponseJSON;
   public insureds = this.insuredService.$myInsuredList
-  public insurances : Insurance[] = []
+  public insurances = this.insuranceService.myInsuranceLst;
   public insurancesBidimentional : Insurance[][] = []
 
-  public insuredDTO : InsuredDTO[] = [];
+  public insuredDTO = this.insuredService.$myInsuredDTOList;
 
-  public selectedElement : Insured | null = null;
+  public selectedElement : InsuredDTO | null = null;
   public initialValue : string = '';
 
   public hasLoaded : boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  public insuredEditForm = new FormGroup({
+
+  public insuredDTOEditForm = new FormGroup({
     id : new FormControl<number | null>(0),
     identification : new FormControl<string>('', [Validators.required]),
     insuredName : new FormControl<string>('', [Validators.required]),
     phoneNumber : new FormControl<string | null>('', [Validators.required]),
-    age : new FormControl<number | null>(0, [Validators.required])
+    age : new FormControl<number | null>(0, [Validators.required]),
+    insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
 
-  public get currentInsuredEditForm() : Insured {
-    return this.insuredEditForm.value as Insured;
+  public get currentInsuredEditForm() : InsuredDTO {
+    return this.insuredDTOEditForm.value as InsuredDTO;
   }
-
-  
-  public getInsurancesBidimentional( id : string ) : any {
-    this.insurances.forEach( (i) => {
-      this.insurancesBidimentional.push([])
-    })
-
-    return this.insurancesBidimentional;
-  }
-  
   
   public displayedColumns: string[] = ['Identificación', 'Nombre', 'N° de teléfono', 'Edad', 'Seguros', 'Acciones'];
-  public dataSource = new MatTableDataSource<Insured>(this.insuredService.myInsuredLst);
+  public dataSource = new MatTableDataSource<InsuredDTO>(this.insuredService.myInsuredDTOLst);
   
   ngOnInit(): void {
     this.insuredService.getAllInsureds()
@@ -69,13 +59,61 @@ export class ListInsuredPageComponent implements OnInit{
           }
         }
       )
+
+    this.insureds.subscribe({
+      next: (i) => {
+        this.insuranceService.getAllInsurances()
+          .subscribe({
+            next: (resp) => {
+              this.insuranceService.addList(resp.data)
+              this.insurances = this.insuranceService.myInsuranceLst;
+            }
+          })
+        i.forEach( (j) => {
+          this.insuranceService.getAllInsurancesByInsured(j.identification)
+            .pipe(
+              
+            )
+            .subscribe({
+              next: (res) => {
+                const insuredsCode : string[] = []
+                res.data.forEach( (k) => {
+                  insuredsCode.push(k.insuranceCode)
+                })
+                const insured : InsuredDTO = {
+                  id: j.id,
+                  identification: j.identification,
+                  insuredName: j.insuredName,
+                  phoneNumber: j.phoneNumber,
+                  age: j.age,
+                  insurances: insuredsCode
+                }
+                
+                this.insuredService.addDTOList(insured)
+              },
+              error: (err) => {
+                const insured : InsuredDTO = {
+                  id: j.id,
+                  identification: j.identification,
+                  insuredName: j.insuredName,
+                  phoneNumber: j.phoneNumber,
+                  age: j.age,
+                  insurances: []
+                }
+
+                this.insuredService.addDTOList(insured)
+              },
+            })
+        })
+      }
+    })
   }  
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  ChangeEditSave( element : Insured ) {
+  ChangeEditSave( element : InsuredDTO ) {
     
     
     if ( this.selectedElement === element) {
@@ -113,12 +151,12 @@ export class ListInsuredPageComponent implements OnInit{
       });
       
     } else {
-      this.insuredEditForm.reset(element);
+      this.insuredDTOEditForm.reset(element);
       this.selectedElement = element;
     }
   }
 
-  deleteInsured( element : Insured ) {
+  deleteInsured( element : InsuredDTO ) {
     if ( this.selectedElement === element) {
       this.selectedElement = null;
     } else {

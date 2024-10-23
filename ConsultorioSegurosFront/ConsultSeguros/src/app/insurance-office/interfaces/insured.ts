@@ -15,6 +15,10 @@ export interface Insured {
 }
 
 export interface InsuredDTO {
-    insured:        Insured
-    insurances:     Insurance[];
+    id:             number;
+    identification: string;
+    insuredName:    string;
+    phoneNumber:    string;
+    age:            number;
+    insurances:     string[];
 }

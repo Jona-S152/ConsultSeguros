@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { environments } from '../../../environments/environments';
-import { Insured, ResponseJSON } from '../interfaces/insured';
+import { Insured, InsuredDTO, ResponseJSON } from '../interfaces/insured';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,22 @@ export class InsuredService {
   private myInsuredList = new BehaviorSubject<Insured[]>([]);
   $myInsuredList = this.myInsuredList.asObservable();
 
+  private insuredDTOList : InsuredDTO[] = [];
+
+  private myInsuredDTOList = new BehaviorSubject<InsuredDTO[]>([]);
+  $myInsuredDTOList = this.myInsuredDTOList.asObservable();
+
   private originalInsuredList : Insured[] = [];
 
   public get myInsuredLst() : Insured[] {
     return this.insuredList;
   }
+
+  
+  public get myInsuredDTOLst() : InsuredDTO[] {
+    return this.insuredDTOList;
+  }
+  
 
   getAllInsureds() : Observable<ResponseJSON>{
     return this.http.get<ResponseJSON>(`${this.baseUrl}/api/Insured/GetAll`)
@@ -34,6 +45,11 @@ export class InsuredService {
   addList( insureds : Insured[] ){
     this.insuredList = insureds;
     this.myInsuredList.next(this.insuredList);
+  }
+
+  addDTOList( insureds : InsuredDTO ){
+    this.insuredDTOList.push(insureds);
+    this.myInsuredDTOList.next(this.insuredDTOList);
   }
 
   setCopyInsuredList(){
