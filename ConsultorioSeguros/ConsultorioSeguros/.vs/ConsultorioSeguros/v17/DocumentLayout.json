@@ -56,8 +56,7 @@
               "RelativeToolTip": "..\\BLL\\Insured\\InsuredService.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAowFMAAAB0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-23T13:49:03.073Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-23T13:49:03.073Z"
             },
             {
               "$type": "Document",
@@ -81,8 +80,7 @@
               "RelativeToolTip": "Controllers\\InsuredController.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAuwFEAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T14:18:34.855Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-21T14:18:34.855Z"
             },
             {
               "$type": "Document",
@@ -94,8 +92,7 @@
               "RelativeToolTip": "..\\DAL\\Insured\\IInsuredRepository.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAIA6wBIAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-23T13:01:17.836Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-23T13:01:17.836Z"
             },
             {
               "$type": "Document",
@@ -107,8 +104,7 @@
               "RelativeToolTip": "..\\Entities\\DTOs\\InsuranceDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T13:24:39.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-22T13:24:39.975Z"
             },
             {
               "$type": "Document",
@@ -118,7 +114,7 @@
               "RelativeDocumentMoniker": "..\\DAL\\Insured\\InsuredRepository.cs",
               "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
               "RelativeToolTip": "..\\DAL\\Insured\\InsuredRepository.cs",
-              "ViewState": "AgIAAI4AAAAAAAAAAAAwwJ4AAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ4AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T13:26:52.58Z",
               "EditorCaption": ""
@@ -133,8 +129,7 @@
               "RelativeToolTip": "..\\BLL\\Insurance\\InsuranceService.cs",
               "ViewState": "AgIAAF4AAAAAAAAAAAAewE0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T16:52:09.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-21T16:52:09.975Z"
             },
             {
               "$type": "Document",
@@ -146,8 +141,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-21T13:22:03.126Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-21T13:22:03.126Z"
             },
             {
               "$type": "Document",
