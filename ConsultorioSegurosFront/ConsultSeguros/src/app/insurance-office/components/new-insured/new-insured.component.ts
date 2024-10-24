@@ -38,6 +38,26 @@ export class NewInsuredComponent implements OnInit {
       })
   }
 
+  uploadFile( event : any ){
+    const file = event.target.files[0];
+
+    this.insuredService.uploadFile(file)
+      .subscribe({
+        next: (res) => {
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            text: err.message
+          });
+        }
+      })
+  }
+
   addInsurance(){
 
     if (this.insuredForm.invalid) return;

@@ -107,4 +107,15 @@ export class InsuredService {
     this.insuredList.push(insurance);
     this.myInsuredList.next(this.insuredList);
   }
+
+  uploadFile( file : File ) : Observable<ResponseJSON> {
+    const formData = new FormData();
+
+    formData.append('file', file, file.name);
+
+    return this.http.post<ResponseJSON>(`${this.baseUrl}/api/Insured/UploadFile`, formData)
+      .pipe(
+        catchError( err => throwError( () => err.error ))
+      )
+  }
 }
