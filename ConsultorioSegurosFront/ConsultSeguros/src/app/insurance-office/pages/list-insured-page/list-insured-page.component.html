@@ -77,7 +77,7 @@
                                 <mat-label *ngIf="selectedElement !== element">{{ element.insurances }}</mat-label>
                                 <mat-form-field  *ngIf="selectedElement === element">
                                     <mat-select formControlName="insurances" multiple>
-                                        <mat-option *ngFor="let insurance of insurances"> {{ insurance.insuranceCode }} </mat-option>
+                                        <mat-option [value]="insurance.id" *ngFor="let insurance of insurances"> {{ insurance.insuranceCode }} </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </td>
