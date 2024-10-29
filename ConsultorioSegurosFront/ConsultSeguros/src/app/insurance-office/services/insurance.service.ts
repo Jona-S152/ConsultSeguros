@@ -30,7 +30,7 @@ export class InsuranceService {
   }
 
   getAllInsurancesByInsured( identification : string ) : Observable<ResponseJSON> {
-    return this.http.get<ResponseJSON>(`${this.baseUrl}/api/Insured/GetInsuranceByInsured/${ identification }`)
+    return this.http.get<ResponseJSON>(`${this.baseUrl}/api/InsuredGet/GetInsuranceByInsured/${ identification }`)
       .pipe(
         catchError( err => throwError( () => err.error ))
       )

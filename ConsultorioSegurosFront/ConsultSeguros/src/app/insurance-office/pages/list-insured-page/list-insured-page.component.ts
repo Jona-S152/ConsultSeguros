@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Insured, InsuredDTO, ResponseJSON } from '../../interfaces/insured';
+import { InsuredGet, InsuredDTO, ResponseJSON } from '../../interfaces/insured';
 import { MatTableDataSource } from '@angular/material/table';
 import { InsuredService } from '../../services/insured.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

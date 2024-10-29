@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { InsuredService } from '../../services/insured.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Insured } from '../../interfaces/insured';
+import { Insured, InsuredGet } from '../../interfaces/insured';
 import { InsuranceService } from '../../services/insurance.service';
 import { Insurance } from '../../interfaces/insurance';
 
@@ -26,9 +26,24 @@ export class NewInsuredComponent implements OnInit {
     insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
   
-  public get currentInsuredForm() : Insured {
-    return this.insuredForm.value as Insured;
+  public get currentInsuredForm() : InsuredGet {
+    return this.insuredForm.value as InsuredGet;
   }
+
+  
+  public getCurrentInsuredInsertForm( insurances : string ) : Insured {
+    const currentInsuredForm : Insured = {
+      id : this.currentInsuredForm.id,
+      identification : this.currentInsuredForm.identification,
+      insuredName : this.currentInsuredForm.insuredName,
+      phoneNumber: this.currentInsuredForm.phoneNumber,
+      age: this.currentInsuredForm.age,
+      insurancesIds: insurances
+    }
+
+    return currentInsuredForm;
+  }
+  
   
   ngOnInit(): void {
     this.insuranceService.getAllInsurances()
@@ -63,32 +78,22 @@ export class NewInsuredComponent implements OnInit {
 
     if (this.insuredForm.invalid) return;
 
-    this.insuredService.addInsured(this.currentInsuredForm)
+    const selectedValues : string[] = this.insuredForm.get('insurances')?.value ?? [];
+    const selectedValuesConcat : string = selectedValues.join();
+
+    const currentInsured = this.getCurrentInsuredInsertForm(selectedValuesConcat);
+
+    console.log(currentInsured);
+
+    this.insuredService.addInsured(currentInsured)
       .subscribe({
         next: (res) => {
           this.insuredService.addInsuredToList(this.currentInsuredForm);
-          const selectedValues : string[] = this.insuredForm.get('insurances')?.value ?? [];
-          const selectedValuesConcat : string = selectedValues.join();
 
-          console.log(selectedValuesConcat)
-
-          this.insuredService.assignInsurancesToInsured(selectedValuesConcat)
-            .subscribe({
-              next: (resp) => {
-                Swal.fire({
-                  icon: 'success',
-                  text: resp.message
-                });
-                this.insuredForm.reset();
-              },
-              error: (err) => {
-                Swal.fire({
-                  icon: 'error',
-                  text: err.message
-                })
-              }
-            })
-
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          });
         },
         error: (err) => {
           Swal.fire({

@@ -2,8 +2,16 @@ import { Insurance } from "./insurance";
 
 export interface ResponseJSON {
     message: string;
-    data:    Insured[];
+    data:    InsuredGet[];
     error:   boolean;
+}
+
+export interface InsuredGet {
+    id:             number;
+    identification: string;
+    insuredName:    string;
+    phoneNumber:    string;
+    age:            number;
 }
 
 export interface Insured {
@@ -12,6 +20,7 @@ export interface Insured {
     insuredName:    string;
     phoneNumber:    string;
     age:            number;
+    insurancesIds:  string;
 }
 
 export interface InsuredDTO {

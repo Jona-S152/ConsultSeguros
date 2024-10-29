@@ -34,7 +34,7 @@ namespace BLL.Insured
 
                 if (!isSuccessful.First().Key) return new ResponseJson() { Message = MessageResponse.IdentificationAlreadyExist, Data = null, Error = true };
 
-                int id = await _insuredRepository.GetInsuredIdAsync();
+                int id = await _insuredRepository.GetInsuredIdAsync(isSuccessful.First().Value.First().Key, isSuccessful.First().Value.First().Value);
 
                 if (id < 0)
                 {
@@ -67,7 +67,7 @@ namespace BLL.Insured
             {
                 bool isSuccesful = await _insuredRepository.DeleteInsuredAsync(id);
 
-                if (isSuccesful) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
+                if (!isSuccesful) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
 
                 response.Message = MessageResponse.SuccessfulRemoval;
                 response.Data = null;
@@ -117,7 +117,7 @@ namespace BLL.Insured
 
             try
             {
-                Dictionary<bool, List<InsuredDTO>> result = await _insuredRepository.GetAllInsuredAsync();
+                Dictionary<bool, List<InsuredDTOGet>> result = await _insuredRepository.GetAllInsuredAsync();
 
                 if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredListNotFound, Data = null, Error = true };
 
@@ -143,7 +143,7 @@ namespace BLL.Insured
 
             try
             {
-                Dictionary<bool, InsuredDTO> result = await _insuredRepository.GetInsuredAsync(id);
+                Dictionary<bool, InsuredDTOGet> result = await _insuredRepository.GetInsuredAsync(id);
 
                 if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
 
@@ -169,7 +169,7 @@ namespace BLL.Insured
 
             try
             {
-                Dictionary<bool, InsuredDTO> result = await _insuredRepository.GetInsuredByIdentificationAsync(identification);
+                Dictionary<bool, InsuredDTOGet> result = await _insuredRepository.GetInsuredByIdentificationAsync(identification);
 
                 if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
 
@@ -195,7 +195,6 @@ namespace BLL.Insured
 
             try
             {
-
                 DataTable table = GetDatatable(id, insuredDTO.InsurancesIds);
 
                 bool isSuccesful = await _insuredRepository.UpdateInsuredWithInsurances(id, insuredDTO, table);

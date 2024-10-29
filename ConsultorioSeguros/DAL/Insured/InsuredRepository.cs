@@ -26,6 +26,7 @@ namespace DAL.Insured
             {
                 using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
+                    conn.Open();
                     using (SqlTransaction tran = conn.BeginTransaction())
                     {
                         try
@@ -33,8 +34,6 @@ namespace DAL.Insured
                             string spName = ProcedureNames.InsertInsured;
                             using (SqlCommand cmd = new SqlCommand(spName, conn))
                             {
-                                conn.Open();
-
                                 cmd.Transaction = tran;
 
                                 cmd.CommandType = CommandType.StoredProcedure;
@@ -48,8 +47,6 @@ namespace DAL.Insured
                                 await cmd.ExecuteNonQueryAsync();
 
                                 bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
-
-                                conn.Close();
 
                                 Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>> resultInsert = new Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>();
 
@@ -76,25 +73,24 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<int> GetInsuredIdAsync()
+        public async Task<int> GetInsuredIdAsync(SqlConnection conn, SqlTransaction tran)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 Id FROM Insured ORDER BY Id DESC", conn))
-                {
-                    conn.Open();
-                    cmd.CommandType = CommandType.Text;
+            string query = Queries.GetInsuredId;
 
-                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.Transaction = tran;
+
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            return reader.GetInt32(0);
-                        }
-                        else
-                        {
-                            return -1;
-                        }
+                        return reader.GetInt32(0);
+                    }
+                    else
+                    {
+                        return -1;
                     }
                 }
             }
@@ -129,26 +125,49 @@ namespace DAL.Insured
 
         public async Task<bool> DeleteInsuredAsync(int id)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                string spName = ProcedureNames.DeleteInsured;
-                using (SqlCommand cmd = new SqlCommand(spName, conn))
+                using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
                     conn.Open();
+                    using (SqlTransaction tran = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string spName = ProcedureNames.DeleteInsured;
+                            using (SqlCommand cmd = new SqlCommand(spName, conn))
+                            {
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue(SPParameters.Id, id);
+                                cmd.Transaction = tran;
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue(SPParameters.Id, id);
 
-                    cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
+                                cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = SqlDbType.Bit, Direction = ParameterDirection.Output });
 
-                    await cmd.ExecuteNonQueryAsync();
+                                await cmd.ExecuteNonQueryAsync();
 
-                    bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
+                                bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
 
-                    conn.Close();
+                                tran.Commit();
 
-                    return result;
+                                return result;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            throw new Exception(ex.Message);
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -206,9 +225,9 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<Dictionary<bool, List<InsuredDTO>?>> GetAllInsuredAsync()
+        public async Task<Dictionary<bool, List<InsuredDTOGet>?>> GetAllInsuredAsync()
         {
-            Dictionary<bool, List<InsuredDTO>?> result = new Dictionary<bool, List<InsuredDTO>?>();
+            Dictionary<bool, List<InsuredDTOGet>?> result = new Dictionary<bool, List<InsuredDTOGet>?>();
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -218,16 +237,16 @@ namespace DAL.Insured
                 {
                     conn.Open();
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         if (reader.HasRows)
                         {
-                            List<InsuredDTO> insuredList = new List<InsuredDTO>();
+                            List<InsuredDTOGet> insuredList = new List<InsuredDTOGet>();
                             while (reader.Read())
                             {
-                                InsuredDTO insured = new InsuredDTO();
+                                InsuredDTOGet insured = new InsuredDTOGet();
                                 insured.Id = reader.GetInt32(0);
                                 insured.Identification = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                                 insured.InsuredName = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
@@ -252,9 +271,9 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<Dictionary<bool, InsuredDTO?>> GetInsuredAsync(int id)
+        public async Task<Dictionary<bool, InsuredDTOGet?>> GetInsuredAsync(int id)
         {
-            Dictionary<bool, InsuredDTO> result = new Dictionary<bool, InsuredDTO>();
+            Dictionary<bool, InsuredDTOGet> result = new Dictionary<bool, InsuredDTOGet>();
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -264,14 +283,14 @@ namespace DAL.Insured
                 {
                     conn.Open();
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue(SPParameters.Id, id);
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         if (reader.HasRows && reader.Read())
                         {
-                            InsuredDTO insured = new InsuredDTO();
+                            InsuredDTOGet insured = new InsuredDTOGet();
                             insured.Id = reader.GetInt32(0);
                             insured.Identification = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                             insured.InsuredName = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
@@ -293,9 +312,9 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<Dictionary<bool, InsuredDTO?>> GetInsuredByIdentificationAsync(string identification)
+        public async Task<Dictionary<bool, InsuredDTOGet?>> GetInsuredByIdentificationAsync(string identification)
         {
-            Dictionary<bool, InsuredDTO> result = new Dictionary<bool, InsuredDTO>();
+            Dictionary<bool, InsuredDTOGet> result = new Dictionary<bool, InsuredDTOGet>();
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -305,14 +324,14 @@ namespace DAL.Insured
                 {
                     conn.Open();
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue(SPParameters.Identification, identification);
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         if (reader.HasRows && reader.Read())
                         {
-                            InsuredDTO insured = new InsuredDTO();
+                            InsuredDTOGet insured = new InsuredDTOGet();
                             insured.Id = reader.GetInt32(0);
                             insured.Identification = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                             insured.InsuredName = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
@@ -452,6 +471,10 @@ namespace DAL.Insured
             {
                 tran.Rollback();
                 throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }
