@@ -118,4 +118,12 @@ export class InsuredService {
         catchError( err => throwError( () => err.error ))
       )
   }
+
+  assignInsurancesToInsured( InsurancesIds : string ) : Observable<ResponseJSON> {
+    console.log({InsurancesIds})
+    return this.http.post<ResponseJSON>(`${this.baseUrl}/api/Insured/AssignInsurances`, {InsurancesIds})
+      .pipe(
+        catchError( err => throwError( () => err.error ))
+      )
+  }
 }

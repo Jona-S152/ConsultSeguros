@@ -129,14 +129,14 @@
   {
     "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
     "Method": "AssignInsurance",
-    "RelativePath": "api/Insured/AssignInsurance",
+    "RelativePath": "api/Insured/AssignInsurances",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "insurancesIds",
-        "Type": "System.String",
+        "Name": "insurances",
+        "Type": "Entities.DTOs.Insurances",
         "IsRequired": true
       }
     ],

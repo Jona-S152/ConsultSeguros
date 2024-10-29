@@ -43,6 +43,12 @@ export class ListInsuredPageComponent implements OnInit{
   public get currentInsuredEditForm() : InsuredDTO {
     return this.insuredDTOEditForm.value as InsuredDTO;
   }
+
+  getSelectedValues() {
+    const selectedValues = this.insuredDTOEditForm.get('insurances')?.value;
+
+    console.log('selected values', selectedValues)
+  }
   
   public displayedColumns: string[] = ['Identificación', 'Nombre', 'N° de teléfono', 'Edad', 'Seguros', 'Acciones'];
   public dataSource = new MatTableDataSource<InsuredDTO>(this.insuredService.myInsuredDTOLst);
@@ -114,8 +120,7 @@ export class ListInsuredPageComponent implements OnInit{
   }
 
   ChangeEditSave( element : InsuredDTO ) {
-    
-    
+
     if ( this.selectedElement === element) {
       // Guardar cambios
       Swal.fire({
@@ -128,6 +133,8 @@ export class ListInsuredPageComponent implements OnInit{
         cancelButtonText: "No"
       }).then((result) => { 
         if (result.isConfirmed) {
+          this.getSelectedValues();
+          /*
           this.insuredService.updateInsured(this.currentInsuredEditForm)
           .subscribe(
             {
@@ -147,6 +154,7 @@ export class ListInsuredPageComponent implements OnInit{
               }
             }
           )
+            */
         }
       });
       

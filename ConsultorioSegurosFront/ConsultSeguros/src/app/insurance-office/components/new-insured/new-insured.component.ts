@@ -22,7 +22,8 @@ export class NewInsuredComponent implements OnInit {
     identification : new FormControl<string>('', [Validators.required]),
     insuredName : new FormControl<string>('', [Validators.required]),
     phoneNumber : new FormControl<string | null>('', [Validators.required]),
-    age : new FormControl<number | null>(0, [Validators.required])
+    age : new FormControl<number | null>(0, [Validators.required]),
+    insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
   
   public get currentInsuredForm() : Insured {
@@ -66,11 +67,28 @@ export class NewInsuredComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.insuredService.addInsuredToList(this.currentInsuredForm);
-            Swal.fire({
-              icon: 'success',
-              text: res.message
-            });
-            this.insuredForm.reset();
+          const selectedValues : string[] = this.insuredForm.get('insurances')?.value ?? [];
+          const selectedValuesConcat : string = selectedValues.join();
+
+          console.log(selectedValuesConcat)
+
+          this.insuredService.assignInsurancesToInsured(selectedValuesConcat)
+            .subscribe({
+              next: (resp) => {
+                Swal.fire({
+                  icon: 'success',
+                  text: resp.message
+                });
+                this.insuredForm.reset();
+              },
+              error: (err) => {
+                Swal.fire({
+                  icon: 'error',
+                  text: err.message
+                })
+              }
+            })
+
         },
         error: (err) => {
           Swal.fire({
@@ -79,7 +97,6 @@ export class NewInsuredComponent implements OnInit {
           })
         }
       })
-    
   }
 
 }

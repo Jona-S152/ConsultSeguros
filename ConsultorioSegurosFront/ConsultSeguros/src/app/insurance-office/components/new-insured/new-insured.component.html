@@ -27,8 +27,8 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label> Seguros </mat-label>
-                    <mat-select multiple>
-                        <mat-option *ngFor="let insurance of insurances" [value]="insurance.id"> {{ insurance.insuranceCode }} </mat-option>
+                    <mat-select formControlName="insurances" multiple>
+                        <mat-option [value]="insurance.id" *ngFor="let insurance of insurances" [value]="insurance.id"> {{ insurance.insuranceCode }} </mat-option>
                     </mat-select>
                 </mat-form-field>
             </form>
