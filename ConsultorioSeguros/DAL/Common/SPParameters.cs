@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace DAL.Common
         public const string Age = "@Age";
         public const string Result = "@Result";
         public const string Id = "@Id";
+        public const string Id_Insured = "@Id_Insured";
+        public const string Insurances = "@Insurances";
     }
 }

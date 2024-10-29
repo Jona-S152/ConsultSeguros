@@ -20,35 +20,63 @@ namespace DAL.Insured
         {
             _connectionString = connectionString.Value.DB_Seguros;
         }
-        public async Task<bool> AddInsuredAsync(InsuredDTO insuredDTO)
+        public async Task<Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>> AddInsuredAsync(InsuredDTO insuredDTO)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                string spName = ProcedureNames.InsertInsured;
-                using (SqlCommand cmd = new SqlCommand(spName, conn))
+                using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    conn.Open();
+                    using (SqlTransaction tran = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string spName = ProcedureNames.InsertInsured;
+                            using (SqlCommand cmd = new SqlCommand(spName, conn))
+                            {
+                                conn.Open();
 
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
-                    cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
-                    cmd.Parameters.AddWithValue(SPParameters.PhoneNumber, insuredDTO.PhoneNumber);
-                    cmd.Parameters.AddWithValue(SPParameters.Age, insuredDTO.Age);
+                                cmd.Transaction = tran;
 
-                    cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
+                                cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
+                                cmd.Parameters.AddWithValue(SPParameters.PhoneNumber, insuredDTO.PhoneNumber);
+                                cmd.Parameters.AddWithValue(SPParameters.Age, insuredDTO.Age);
 
-                    await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
 
-                    bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
+                                await cmd.ExecuteNonQueryAsync();
 
-                    conn.Close();
+                                bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
 
-                    return result;
+                                conn.Close();
+
+                                Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>> resultInsert = new Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>();
+
+                                Dictionary<SqlConnection, SqlTransaction> keyValuePairs = new Dictionary<SqlConnection, SqlTransaction>();
+
+                                keyValuePairs.Add(conn, tran);
+
+                                resultInsert.Add(result, keyValuePairs);
+
+                                return resultInsert;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            throw new Exception(ex.Message);
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
-        public async Task<int?> GetInsuredIdAsync()
+        public async Task<int> GetInsuredIdAsync()
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -57,43 +85,46 @@ namespace DAL.Insured
                     conn.Open();
                     cmd.CommandType = CommandType.Text;
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         if (reader.Read())
                         {
-                            return (int)reader.GetInt32(0);
+                            return reader.GetInt32(0);
                         }
                         else
                         {
-                            return null;
+                            return -1;
                         }
                     }
                 }
             }
         }
 
-        public async Task<bool> AssignInsuanceToInsuredAsync(DataTable insurances)
+        public async Task<bool> AssignInsuanceToInsuredAsync(int id, InsuredDTO insuredDTO, DataTable insurances, SqlConnection conn, SqlTransaction tran)
         {
-            if (insurances == null) return false;
-
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(conn))
+                if (insurances == null) return false;
+
+                string spName = ProcedureNames.IU_InsuranceInsured;
+
+                using (SqlCommand cmd = new SqlCommand(spName, conn))
                 {
-                    conn.Open();
-                    bulkCopy.DestinationTableName = insurances.TableName;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Transaction = tran;
 
-                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Id_Insured, ColumnNamesInsuranceInsured.Id_Insured);
-                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Id_Insurance, ColumnNamesInsuranceInsured.Id_Insurance);
-                    bulkCopy.ColumnMappings.Add(ColumnNamesInsuranceInsured.Status, ColumnNamesInsuranceInsured.Status);
+                    cmd.Parameters.AddWithValue(SPParameters.Id_Insured, id);
+                    cmd.Parameters.AddWithValue(SPParameters.Insurances, insurances);
 
-                    await bulkCopy.WriteToServerAsync(insurances);
-
-                    conn.Close();
+                    await cmd.ExecuteNonQueryAsync();
                 }
-            }
 
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> DeleteInsuredAsync(int id)
@@ -303,18 +334,15 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<Dictionary<bool, InsuredDTO?>> UpdateInsuredAsync(int id, InsuredDTO insuredDTO)
+        public async Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO, SqlConnection conn, SqlTransaction tran)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            try
             {
                 string spName = ProcedureNames.UpdateInsured;
-                Dictionary<bool, InsuredDTO> dictionaryResult = new Dictionary<bool, InsuredDTO>();
-
-                conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(spName, conn))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue(SPParameters.Id, id);
                     cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
                     cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
@@ -326,34 +354,13 @@ namespace DAL.Insured
                     await cmd.ExecuteNonQueryAsync();
 
                     bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
-                    
-                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
-                    {
-                        if (result)
-                        {
-                            if (reader.HasRows && reader.Read())
-                            {
-                                InsuredDTO insured = new InsuredDTO();
-                                insured.Id = reader.GetInt32(0);
-                                insured.Identification = reader.GetString(1);
-                                insured.InsuredName = reader.GetString(2);
-                                insured.PhoneNumber = reader.GetString(3);
-                                insured.Age = reader.GetInt32(4);
 
-                                dictionaryResult.Add(result, insured);
-                            } 
-                        }
-                        else
-                        {
-                            dictionaryResult.Add(result, null);
-                        }
-
-                        conn.Close();
-
-                        return dictionaryResult;
-                    }
-
+                    return result;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -383,5 +390,69 @@ namespace DAL.Insured
             return true;
         }
 
+        public async Task<bool> UpdateInsuredWithInsurances(int id, InsuredDTO insured, DataTable insurances)
+        {
+            try
+            {
+                bool result = false;
+
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (SqlTransaction tran = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            bool statusUpdate = await UpdateInsuredAsync(id, insured, conn, tran);
+
+                            if (!statusUpdate)
+                            {
+                                tran.Rollback();
+                                throw new Exception(MessageResponse.InsuredNotFound);
+                            }
+
+                            bool statusInsurances = await AssignInsuanceToInsuredAsync(id, insured, insurances, conn, tran);
+
+                            if (!statusInsurances)
+                            {
+                                tran.Rollback();
+                                throw new Exception(MessageResponse.EmptyFields);
+                            }
+
+                            tran.Commit();
+                            result = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            throw new Exception(ex.Message);
+                        }
+                    }
+                    conn.Close();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> AssignInsuanceToInsured(int id, InsuredDTO insuredDTO, DataTable insurances, SqlConnection conn, SqlTransaction tran)
+        {
+            try
+            {
+                bool isSuccessful = await AssignInsuanceToInsuredAsync(id, insuredDTO, insurances, conn, tran);
+                tran.Commit();
+
+                return isSuccessful;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

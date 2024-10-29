@@ -13,5 +13,6 @@ namespace Entities.DTOs
         public string InsuredName { get; set; }
         public string PhoneNumber { get; set; }
         public int Age { get; set; }
+        public string InsurancesIds { get; set; }
     }
 }

@@ -20,6 +20,5 @@ namespace BLL.Insured
         public Task<ResponseJson> GetInsuredByIdentificationAsync(string identification);
         public Task<ResponseJson> GetAllInsuranceByInsuredAsync(string identification);
         public Task<ResponseJson> UploadInsuredsAsync(IFormFile formFile);
-        public Task<ResponseJson> AssignInsuanceToInsuredAsync(string insurancesIds);
     }
 }

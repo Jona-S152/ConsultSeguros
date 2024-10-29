@@ -128,22 +128,6 @@
   },
   {
     "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
-    "Method": "AssignInsurance",
-    "RelativePath": "api/Insured/AssignInsurances",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "insurances",
-        "Type": "Entities.DTOs.Insurances",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ConsultorioSeguros.Controllers.InsuredController",
     "Method": "DeleteInsured",
     "RelativePath": "api/Insured/DeleteInsured/{id}",
     "HttpMethod": "DELETE",

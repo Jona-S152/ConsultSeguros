@@ -6,6 +6,7 @@ using Entities;
 using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -29,15 +30,24 @@ namespace BLL.Insured
 
             try
             {
-                bool isSuccesful = await _insuredRepository.AddInsuredAsync(insuredDTO);
+                Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>> isSuccessful = await _insuredRepository.AddInsuredAsync(insuredDTO);
 
-                if (!isSuccesful) return new ResponseJson() { Message = MessageResponse.IdentificationAlreadyExist, Data = null, Error = true };
+                if (!isSuccessful.First().Key) return new ResponseJson() { Message = MessageResponse.IdentificationAlreadyExist, Data = null, Error = true };
 
-                response.Message = MessageResponse.SuccessfulRegistration;
-                response.Data = null;
-                response.Error = false;
+                int id = await _insuredRepository.GetInsuredIdAsync();
 
-                return response;
+                if (id < 0)
+                {
+                    DataTable table = GetDatatable(id, insuredDTO.InsurancesIds);
+
+                    bool isSuccesful = await _insuredRepository.AssignInsuanceToInsured(id, insuredDTO, table, isSuccessful.First().Value.First().Key, isSuccessful.First().Value.First().Value);
+
+                    return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulRegistration, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
+                }
+                else
+                {
+                    return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
+                }
             }
             catch (Exception ex)
             {
@@ -185,15 +195,12 @@ namespace BLL.Insured
 
             try
             {
-                Dictionary<bool, InsuredDTO?> result = await _insuredRepository.UpdateInsuredAsync(id, insuredDTO);
 
-                if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
+                DataTable table = GetDatatable(id, insuredDTO.InsurancesIds);
 
-                response.Message = MessageResponse.SuccessfulUpdating;
-                response.Data = result.First().Value;
-                response.Error = false;
+                bool isSuccesful = await _insuredRepository.UpdateInsuredWithInsurances(id, insuredDTO, table);
 
-                return response;
+                return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulUpdating, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
             }
             catch (Exception ex)
             {
@@ -322,44 +329,26 @@ namespace BLL.Insured
             return dt;
         }
 
-        public async Task<ResponseJson> AssignInsuanceToInsuredAsync(string insurancesIds)
+        private DataTable GetDatatable(int id, string insurancesIds)
         {
-            try
+            string[] columnNames = { Common.ColumnNamesInsuranceInsured.Id_Insured, Common.ColumnNamesInsuranceInsured.Id_Insurance, Common.ColumnNamesInsuranceInsured.Status };
+
+            DataTable table = GetFormatDatatable(TableNames.InsuranceInsured, columnNames);
+
+            string[] insurances = insurancesIds.Split(',');
+
+            foreach (string ins in insurances)
             {
-                int? id = await _insuredRepository.GetInsuredIdAsync();
+                DataRow dataRow = table.NewRow();
 
-                if (id != null)
-                {
-                    string[] columnNames = { Common.ColumnNamesInsuranceInsured.Id_Insurance, Common.ColumnNamesInsuranceInsured.Id_Insured, Common.ColumnNamesInsuranceInsured.Status };
+                dataRow[0] = id;
+                dataRow[1] = int.Parse(ins.Trim());
+                dataRow[2] = true;
 
-                    DataTable table = GetFormatDatatable(TableNames.InsuranceInsured, columnNames);
-
-                    string[] insurances = insurancesIds.Split(',');
-
-                    foreach (string ins in insurances)
-                    {
-                        DataRow dataRow = table.NewRow();
-
-                        dataRow[0] = int.Parse(ins.Trim());
-                        dataRow[1] = id;
-                        dataRow[2] = true;
-
-                        table.Rows.Add(dataRow);
-                    }
-
-                    bool isSuccesful = await _insuredRepository.AssignInsuanceToInsuredAsync(table);
-
-                    return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulRegistration, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
-                }
-                else
-                {
-                    return new ResponseJson() { Message = "No se encontró al asegurado", Data = null, Error = true };
-                }
+                table.Rows.Add(dataRow);
             }
-            catch (Exception ex)
-            {
-                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
-            }
+
+            return table;
         }
     }
 }
