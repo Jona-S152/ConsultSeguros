@@ -37,7 +37,9 @@ export class InsuranceService {
   }
 
   setCopyInsuranceList(){
+    console.log(this.insuranceList)
     this.originalInsuranceList = [...this.insuranceList]
+    console.log(this.originalInsuranceList)
   }
 
   deleteInsurance( id : number ) : Observable<ResponseJSON> {

@@ -26,8 +26,8 @@ export class NewInsuredComponent implements OnInit {
     insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
   
-  public get currentInsuredForm() : InsuredGet {
-    return this.insuredForm.value as InsuredGet;
+  public get currentInsuredForm() : Insured {
+    return this.insuredForm.value as Insured;
   }
 
   
@@ -83,11 +83,18 @@ export class NewInsuredComponent implements OnInit {
 
     const currentInsured = this.getCurrentInsuredInsertForm(selectedValuesConcat);
 
-    console.log(currentInsured);
-
     this.insuredService.addInsured(currentInsured)
       .subscribe({
         next: (res) => {
+          let selectedTexts = selectedValues.map(value => {
+            const insurance = this.insurances.find(ins => ins.id === Number(value));
+            return insurance ? insurance.insuranceCode : '';
+          });
+
+          selectedTexts = selectedTexts.filter(t => t !== '');
+
+          currentInsured.insurancesIds = selectedTexts.join();
+
           this.insuredService.addInsuredToList(currentInsured);
 
           Swal.fire({

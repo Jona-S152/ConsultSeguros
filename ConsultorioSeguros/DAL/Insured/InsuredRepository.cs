@@ -369,6 +369,8 @@ namespace DAL.Insured
                             using (SqlCommand cmd = new SqlCommand(spName, conn))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Transaction = tran;
+
                                 cmd.Parameters.AddWithValue(SPParameters.Id, id);
                                 cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
                                 cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);

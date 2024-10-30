@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { InsuredGet, InsuredDTO, ResponseJSON, Insured } from '../../interfaces/insured';
+import { ResponseJSON, Insured } from '../../interfaces/insured';
 import { MatTableDataSource } from '@angular/material/table';
 import { InsuredService } from '../../services/insured.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,18 +20,17 @@ export class ListInsuredPageComponent implements OnInit{
   public response? : ResponseJSON;
   public insureds = this.insuredService.$myInsuredList
   public insurances = this.insuranceService.myInsuranceLst;
-  public insurancesBidimentional : Insurance[][] = []
 
-  public insuredDTO = this.insuredService.$myInsuredDTOList;
+  public selectedInsurances: number[] = [];
 
-  public selectedElement : InsuredDTO | null = null;
+  public selectedElement : Insured | null = null;
   public initialValue : string = '';
 
   public hasLoaded : boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-  public insuredDTOEditForm = new FormGroup({
+  public insuredEditForm = new FormGroup({
     id : new FormControl<number | null>(0),
     identification : new FormControl<string>('', [Validators.required]),
     insuredName : new FormControl<string>('', [Validators.required]),
@@ -41,13 +40,20 @@ export class ListInsuredPageComponent implements OnInit{
   })
 
   public get currentInsuredEditForm() : Insured {
-    return this.insuredDTOEditForm.value as Insured;
+    return this.insuredEditForm.value as Insured;
   }
 
-  getSelectedValues() {
-    const selectedValues = this.insuredDTOEditForm.get('insurances')?.value;
+  public getCurrentInsuredUpdateForm( insurances : string ) : Insured {
+    const currentInsuredForm : Insured = {
+      id : this.currentInsuredEditForm.id,
+      identification : this.currentInsuredEditForm.identification,
+      insuredName : this.currentInsuredEditForm.insuredName,
+      phoneNumber: this.currentInsuredEditForm.phoneNumber,
+      age: this.currentInsuredEditForm.age,
+      insurancesIds: insurances
+    }
 
-    console.log('selected values', selectedValues)
+    return currentInsuredForm;
   }
   
   public displayedColumns: string[] = ['Identificación', 'Nombre', 'N° de teléfono', 'Edad', 'Seguros', 'Acciones'];
@@ -63,7 +69,6 @@ export class ListInsuredPageComponent implements OnInit{
               this.insuranceService.getAllInsurancesByInsured(j.identification)
               .subscribe({
                 next: (resp) => {
-                  console.log(resp)
                   const insuredsCode : string[] = []
                     resp.data.forEach( (k) => {
                       insuredsCode.push(k.insuranceCode)
@@ -86,7 +91,7 @@ export class ListInsuredPageComponent implements OnInit{
                       insuredName: j.insuredName,
                       phoneNumber: j.phoneNumber,
                       age: j.age,
-                      insurancesIds: ''
+                      insurancesIds: []
                     }
         
                     this.insuredService.addInsuredToList(insured);
@@ -94,10 +99,16 @@ export class ListInsuredPageComponent implements OnInit{
                 })
             })
             this.hasLoaded = true;
-            this.insuredService.setCopyInsuredList();
+            
           }
         }
       )
+
+    this.insureds.subscribe({
+      next: () => {
+        this.insuredService.setCopyInsuredList();
+      }
+    });
       
     this.insuranceService.getAllInsurances()
       .subscribe({
@@ -106,50 +117,17 @@ export class ListInsuredPageComponent implements OnInit{
           this.insurances = this.insuranceService.myInsuranceLst;
         }
       })
-
-    // this.insuredsGet.forEach( (j) => {
-    //   this.insuranceService.getAllInsurancesByInsured(j.identification)
-    //     .subscribe({
-    //       next: (res) => {
-    //         const insuredsCode : string[] = []
-    //         res.data.forEach( (k) => {
-    //           insuredsCode.push(k.insuranceCode)
-    //         })
-    //         const insured : InsuredDTO = {
-    //           id: j.id,
-    //           identification: j.identification,
-    //           insuredName: j.insuredName,
-    //           phoneNumber: j.phoneNumber,
-    //           age: j.age,
-    //           insurances: insuredsCode
-    //         }
-            
-    //         this.insuredService.addDTOList(insured)
-    //       },
-    //       error: (err) => {
-    //         const insured : InsuredDTO = {
-    //           id: j.id,
-    //           identification: j.identification,
-    //           insuredName: j.insuredName,
-    //           phoneNumber: j.phoneNumber,
-    //           age: j.age,
-    //           insurances: []
-    //         }
-
-    //         this.insuredService.addDTOList(insured)
-    //       },
-    //     })
-    // })
   }  
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  ChangeEditSave( element : InsuredDTO ) {
+  ChangeEditSave( element : Insured ) {
 
     if ( this.selectedElement === element) {
       // Guardar cambios
+
       Swal.fire({
         title: "Estás seguro/a de actualizar este registro?",
         icon: "warning",
@@ -160,13 +138,28 @@ export class ListInsuredPageComponent implements OnInit{
         cancelButtonText: "No"
       }).then((result) => { 
         if (result.isConfirmed) {
-          this.getSelectedValues();
-          /*
-          this.insuredService.updateInsured(this.currentInsuredEditForm)
+
+          const selectedValues : string[] = this.insuredEditForm.get('insurances')?.value ?? [];
+          const selectedValuesConcat : string = selectedValues.join();
+
+          const currentInsured = this.getCurrentInsuredUpdateForm(selectedValuesConcat);
+
+          this.insuredService.updateInsured(currentInsured)
           .subscribe(
             {
               next: (res) => {
-                this.insuredService.updateInsuredToList(this.currentInsuredEditForm);
+
+                let selectedTexts = selectedValues.map(value => {
+                  const insurance = this.insurances.find(ins => ins.id === Number(value));
+                  return insurance ? insurance.insuranceCode : '';
+                });
+      
+                selectedTexts = selectedTexts.filter(t => t !== '');
+      
+                currentInsured.insurancesIds = selectedTexts.join();
+
+                this.insuredService.updateInsuredToList(currentInsured);
+                
                 Swal.fire({
                   icon: 'success',
                   text: res.message
@@ -181,17 +174,26 @@ export class ListInsuredPageComponent implements OnInit{
               }
             }
           )
-            */
         }
       });
       
     } else {
-      this.insuredDTOEditForm.reset(element);
-      this.selectedElement = element;
-    }
+      
+        const selectedInsurances = this.insurances.filter( i => element.insurancesIds.includes(i.insuranceCode));
+        let selectedValues = selectedInsurances.map(value => {
+          const insurance = this.insurances.find(ins => ins.insuranceCode === value.insuranceCode);
+          return insurance ? insurance.id : 0;
+        })
+
+        this.selectedInsurances = selectedValues;
+        this.insuredEditForm.get('insurances')?.setValue(selectedValues.map(s => s.toString()));
+
+        this.insuredEditForm.reset(element);
+        this.selectedElement = element;
+      }
   }
 
-  deleteInsured( element : InsuredDTO ) {
+  deleteInsured( element : Insured ) {
     if ( this.selectedElement === element) {
       this.selectedElement = null;
     } else {
@@ -232,7 +234,7 @@ export class ListInsuredPageComponent implements OnInit{
     
   }
 
-  searchByCode(code: string){
-    this.insuredService.searchInsuranceByCodeLst(code);
+  searchByIdentification( identification: string ){
+    this.insuredService.searchInsuredByIdentificationLst(identification);
   }
 }

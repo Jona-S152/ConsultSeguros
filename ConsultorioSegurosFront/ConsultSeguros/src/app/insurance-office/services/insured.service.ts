@@ -18,20 +18,10 @@ export class InsuredService {
   private myInsuredList = new BehaviorSubject<Insured[]>([]);
   $myInsuredList = this.myInsuredList.asObservable();
 
-  private insuredDTOList : InsuredDTO[] = [];
-
-  private myInsuredDTOList = new BehaviorSubject<InsuredDTO[]>([]);
-  $myInsuredDTOList = this.myInsuredDTOList.asObservable();
-
   private originalInsuredList : Insured[] = [];
 
   public get myInsuredLst() : Insured[] {
     return this.insuredList;
-  }
-
-  
-  public get myInsuredDTOLst() : InsuredDTO[] {
-    return this.insuredDTOList;
   }
   
 
@@ -47,13 +37,8 @@ export class InsuredService {
     this.myInsuredList.next(this.insuredList);
   }
 
-  addDTOList( insureds : InsuredDTO ){
-    this.insuredDTOList.push(insureds);
-    this.myInsuredDTOList.next(this.insuredDTOList);
-  }
-
   setCopyInsuredList(){
-    this.originalInsuredList = [...this.insuredList]
+    this.originalInsuredList = [...this.myInsuredLst];
   }
 
   updateInsured( insured : Insured ) : Observable<ResponseJSON>{
@@ -64,8 +49,6 @@ export class InsuredService {
   }
 
   updateInsuredToList( insured : Insured ){
-    console.log(insured)
-    console.log(this.insuredList[this.insuredList.findIndex(i => i.id === insured.id)])
     this.insuredList[this.insuredList.findIndex(i => i.id === insured.id)] = insured;
     this.myInsuredList.next(this.insuredList);
   }
@@ -84,12 +67,17 @@ export class InsuredService {
     this.myInsuredList.next(this.insuredList);
   }
 
-  searchInsuranceByCodeLst( identification : string ){
-    this.insuredList = this.originalInsuredList.filter( i => i.identification.toUpperCase().startsWith(identification.toUpperCase()))
-    this.myInsuredList.next(this.insuredList);
+  searchInsuredByIdentificationLst( identification : string ){
+    if ( identification === ''){
+      this.setCopyInsuredList();
+    }
+    else {
+      this.insuredList = this.originalInsuredList.filter( i => i.identification.startsWith(identification))
+      this.myInsuredList.next(this.insuredList);
+    }
   }
 
-  searchInsuranceByCode( identification : string ) : Observable<ResponseJSON> {
+  searchInsuredByIdentification( identification : string ) : Observable<ResponseJSON> {
     return this.http.get<ResponseJSON>(`${this.baseUrl}/api/Insured/GetByIdentification/${identification}`)
       .pipe(
         catchError( err => throwError( () => err.error ))
