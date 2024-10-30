@@ -13,9 +13,9 @@ export class InsuredService {
   
   private http = inject(HttpClient);
 
-  private insuredList : InsuredGet[] = [];
+  private insuredList : Insured[] = [];
 
-  private myInsuredList = new BehaviorSubject<InsuredGet[]>([]);
+  private myInsuredList = new BehaviorSubject<Insured[]>([]);
   $myInsuredList = this.myInsuredList.asObservable();
 
   private insuredDTOList : InsuredDTO[] = [];
@@ -23,9 +23,9 @@ export class InsuredService {
   private myInsuredDTOList = new BehaviorSubject<InsuredDTO[]>([]);
   $myInsuredDTOList = this.myInsuredDTOList.asObservable();
 
-  private originalInsuredList : InsuredGet[] = [];
+  private originalInsuredList : Insured[] = [];
 
-  public get myInsuredLst() : InsuredGet[] {
+  public get myInsuredLst() : Insured[] {
     return this.insuredList;
   }
 
@@ -36,13 +36,13 @@ export class InsuredService {
   
 
   getAllInsureds() : Observable<ResponseJSON>{
-    return this.http.get<ResponseJSON>(`${this.baseUrl}/api/InsuredGet/GetAll`)
+    return this.http.get<ResponseJSON>(`${this.baseUrl}/api/Insured/GetAll`)
       .pipe(
         catchError( err => throwError( () => err.error ))
       )
   }
 
-  addList( insureds : InsuredGet[] ){
+  addList( insureds : Insured[] ){
     this.insuredList = insureds;
     this.myInsuredList.next(this.insuredList);
   }
@@ -63,7 +63,7 @@ export class InsuredService {
       )
   }
 
-  updateInsuredToList( insured : InsuredGet ){
+  updateInsuredToList( insured : Insured ){
     console.log(insured)
     console.log(this.insuredList[this.insuredList.findIndex(i => i.id === insured.id)])
     this.insuredList[this.insuredList.findIndex(i => i.id === insured.id)] = insured;
@@ -103,8 +103,8 @@ export class InsuredService {
       )
   }
 
-  addInsuredToList( insurance : InsuredGet ){
-    this.insuredList.push(insurance);
+  addInsuredToList( insured : Insured ){
+    this.insuredList.push(insured);
     this.myInsuredList.next(this.insuredList);
   }
 

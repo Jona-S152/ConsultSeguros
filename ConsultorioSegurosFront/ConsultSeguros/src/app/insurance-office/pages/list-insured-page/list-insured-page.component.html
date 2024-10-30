@@ -29,7 +29,7 @@
             <mat-divider></mat-divider>
 
             <mat-card-content>
-                <table mat-table [dataSource]="insuredDTO" class="mat-elevation-z8" style="margin-top: 20px;">
+                <table mat-table [dataSource]="insureds" class="mat-elevation-z8" style="margin-top: 20px;">
                     <form [formGroup]="insuredDTOEditForm">
                         <ng-container matColumnDef="Identificación">
                         <th mat-header-cell *matHeaderCellDef> Cédula </th>
@@ -74,7 +74,7 @@
                         <ng-container matColumnDef="Seguros">
                             <th mat-header-cell *matHeaderCellDef> Seguros </th>
                             <td mat-cell *matCellDef="let element">
-                                <mat-label *ngIf="selectedElement !== element">{{ element.insurances }}</mat-label>
+                                <mat-label *ngIf="selectedElement !== element">{{ element.insurancesIds }}</mat-label>
                                 <mat-form-field  *ngIf="selectedElement === element">
                                     <mat-select formControlName="insurances" multiple>
                                         <mat-option [value]="insurance.id" *ngFor="let insurance of insurances"> {{ insurance.insuranceCode }} </mat-option>

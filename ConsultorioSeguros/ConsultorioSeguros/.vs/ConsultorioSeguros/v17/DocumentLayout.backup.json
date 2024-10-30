@@ -42,8 +42,7 @@
               "RelativeToolTip": "..\\BLL\\Insured\\IInsuredService.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAIBJwBUAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:13:21.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:13:21.019Z"
             },
             {
               "$type": "Document",
@@ -53,7 +52,7 @@
               "RelativeDocumentMoniker": "..\\DAL\\Insured\\IInsuredRepository.cs",
               "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\IInsuredRepository.cs",
               "RelativeToolTip": "..\\DAL\\Insured\\IInsuredRepository.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAjwBUAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA4AAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-29T15:12:34.539Z",
               "EditorCaption": ""
@@ -66,7 +65,7 @@
               "RelativeDocumentMoniker": "..\\BLL\\Insured\\InsuredService.cs",
               "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\BLL\\Insured\\InsuredService.cs",
               "RelativeToolTip": "..\\BLL\\Insured\\InsuredService.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAwwCgAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAGMAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-29T14:25:05.121Z",
               "EditorCaption": ""
@@ -79,7 +78,7 @@
               "RelativeDocumentMoniker": "Controllers\\InsuredController.cs",
               "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\ConsultorioSeguros\\Controllers\\InsuredController.cs",
               "RelativeToolTip": "Controllers\\InsuredController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAIwGAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T14:18:34.855Z",
               "EditorCaption": ""
@@ -90,9 +89,9 @@
               "Title": "InsuredRepository.cs",
               "DocumentMoniker": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
               "RelativeDocumentMoniker": "..\\DAL\\Insured\\InsuredRepository.cs",
-              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs*",
-              "RelativeToolTip": "..\\DAL\\Insured\\InsuredRepository.cs*",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAABwAAAAgAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\viamatica\\Desktop\\ConsultSeguros\\ConsultorioSeguros\\DAL\\Insured\\InsuredRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Insured\\InsuredRepository.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAAAMoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-22T13:26:52.58Z",
               "EditorCaption": ""

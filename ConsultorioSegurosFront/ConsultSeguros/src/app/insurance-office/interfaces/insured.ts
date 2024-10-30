@@ -20,7 +20,7 @@ export interface Insured {
     insuredName:    string;
     phoneNumber:    string;
     age:            number;
-    insurancesIds:  string;
+    insurancesIds:  string | string[];
 }
 
 export interface InsuredDTO {

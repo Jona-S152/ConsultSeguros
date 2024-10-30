@@ -11,8 +11,8 @@ namespace DAL.Insured
 {
     public interface IInsuredRepository
     {
-        public Task<Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>> AddInsuredAsync(InsuredDTO insuredDTO);
-        public Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO, SqlConnection conn, SqlTransaction tran);
+        public Task<bool> AddInsuredAsync(InsuredDTO insuredDTO);
+        public Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO);
         public Task<bool> DeleteInsuredAsync(int id);
         public Task<Dictionary<bool, List<InsuredDTOGet>?>> GetAllInsuredAsync();
         public Task<Dictionary<bool, InsuredDTOGet>> GetInsuredAsync(int id);

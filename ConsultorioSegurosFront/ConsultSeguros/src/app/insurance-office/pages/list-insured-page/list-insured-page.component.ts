@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { InsuredGet, InsuredDTO, ResponseJSON } from '../../interfaces/insured';
+import { InsuredGet, InsuredDTO, ResponseJSON, Insured } from '../../interfaces/insured';
 import { MatTableDataSource } from '@angular/material/table';
 import { InsuredService } from '../../services/insured.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -40,8 +40,8 @@ export class ListInsuredPageComponent implements OnInit{
     insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
 
-  public get currentInsuredEditForm() : InsuredDTO {
-    return this.insuredDTOEditForm.value as InsuredDTO;
+  public get currentInsuredEditForm() : Insured {
+    return this.insuredDTOEditForm.value as Insured;
   }
 
   getSelectedValues() {
@@ -51,7 +51,7 @@ export class ListInsuredPageComponent implements OnInit{
   }
   
   public displayedColumns: string[] = ['Identificación', 'Nombre', 'N° de teléfono', 'Edad', 'Seguros', 'Acciones'];
-  public dataSource = new MatTableDataSource<InsuredDTO>(this.insuredService.myInsuredDTOLst);
+  public dataSource = new MatTableDataSource<Insured>(this.insuredService.myInsuredLst);
   
   ngOnInit(): void {
     this.insuredService.getAllInsureds()
@@ -59,60 +59,87 @@ export class ListInsuredPageComponent implements OnInit{
         {
           next: (res) => {
             this.response = res;
-            this.insuredService.addList(res.data);
+            res.data.forEach( (j) => {
+              this.insuranceService.getAllInsurancesByInsured(j.identification)
+              .subscribe({
+                next: (resp) => {
+                  console.log(resp)
+                  const insuredsCode : string[] = []
+                    resp.data.forEach( (k) => {
+                      insuredsCode.push(k.insuranceCode)
+                    })
+                    const insured : Insured = {
+                      id: j.id,
+                      identification: j.identification,
+                      insuredName: j.insuredName,
+                      phoneNumber: j.phoneNumber,
+                      age: j.age,
+                      insurancesIds: insuredsCode
+                    }
+                    
+                    this.insuredService.addInsuredToList(insured);
+                  },
+                  error: () => {
+                    const insured : Insured = {
+                      id: j.id,
+                      identification: j.identification,
+                      insuredName: j.insuredName,
+                      phoneNumber: j.phoneNumber,
+                      age: j.age,
+                      insurancesIds: ''
+                    }
+        
+                    this.insuredService.addInsuredToList(insured);
+                  },
+                })
+            })
             this.hasLoaded = true;
             this.insuredService.setCopyInsuredList();
           }
         }
       )
+      
+    this.insuranceService.getAllInsurances()
+      .subscribe({
+        next: (resp) => {
+          this.insuranceService.addList(resp.data)
+          this.insurances = this.insuranceService.myInsuranceLst;
+        }
+      })
 
-    this.insureds.subscribe({
-      next: (i) => {
-        this.insuranceService.getAllInsurances()
-          .subscribe({
-            next: (resp) => {
-              this.insuranceService.addList(resp.data)
-              this.insurances = this.insuranceService.myInsuranceLst;
-            }
-          })
-        i.forEach( (j) => {
-          this.insuranceService.getAllInsurancesByInsured(j.identification)
-            .pipe(
-              
-            )
-            .subscribe({
-              next: (res) => {
-                const insuredsCode : string[] = []
-                res.data.forEach( (k) => {
-                  insuredsCode.push(k.insuranceCode)
-                })
-                const insured : InsuredDTO = {
-                  id: j.id,
-                  identification: j.identification,
-                  insuredName: j.insuredName,
-                  phoneNumber: j.phoneNumber,
-                  age: j.age,
-                  insurances: insuredsCode
-                }
-                
-                this.insuredService.addDTOList(insured)
-              },
-              error: (err) => {
-                const insured : InsuredDTO = {
-                  id: j.id,
-                  identification: j.identification,
-                  insuredName: j.insuredName,
-                  phoneNumber: j.phoneNumber,
-                  age: j.age,
-                  insurances: []
-                }
+    // this.insuredsGet.forEach( (j) => {
+    //   this.insuranceService.getAllInsurancesByInsured(j.identification)
+    //     .subscribe({
+    //       next: (res) => {
+    //         const insuredsCode : string[] = []
+    //         res.data.forEach( (k) => {
+    //           insuredsCode.push(k.insuranceCode)
+    //         })
+    //         const insured : InsuredDTO = {
+    //           id: j.id,
+    //           identification: j.identification,
+    //           insuredName: j.insuredName,
+    //           phoneNumber: j.phoneNumber,
+    //           age: j.age,
+    //           insurances: insuredsCode
+    //         }
+            
+    //         this.insuredService.addDTOList(insured)
+    //       },
+    //       error: (err) => {
+    //         const insured : InsuredDTO = {
+    //           id: j.id,
+    //           identification: j.identification,
+    //           insuredName: j.insuredName,
+    //           phoneNumber: j.phoneNumber,
+    //           age: j.age,
+    //           insurances: []
+    //         }
 
-                this.insuredService.addDTOList(insured)
-              },
-            })
-        })
-      }
-    })
+    //         this.insuredService.addDTOList(insured)
+    //       },
+    //     })
+    // })
   }  
 
   ngAfterViewInit() {

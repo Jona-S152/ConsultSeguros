@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,36 +27,15 @@ namespace BLL.Insured
         }
         public async Task<ResponseJson> AddInsuredAsync(InsuredDTO insuredDTO)
         {
-            ResponseJson response = new ResponseJson();
-
             try
             {
-                Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>> isSuccessful = await _insuredRepository.AddInsuredAsync(insuredDTO);
+                bool isSuccessful = await _insuredRepository.AddInsuredAsync(insuredDTO);
 
-                if (!isSuccessful.First().Key) return new ResponseJson() { Message = MessageResponse.IdentificationAlreadyExist, Data = null, Error = true };
-
-                int id = await _insuredRepository.GetInsuredIdAsync(isSuccessful.First().Value.First().Key, isSuccessful.First().Value.First().Value);
-
-                if (id < 0)
-                {
-                    DataTable table = GetDatatable(id, insuredDTO.InsurancesIds);
-
-                    bool isSuccesful = await _insuredRepository.AssignInsuanceToInsured(id, insuredDTO, table, isSuccessful.First().Value.First().Key, isSuccessful.First().Value.First().Value);
-
-                    return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulRegistration, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
-                }
-                else
-                {
-                    return new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
-                }
+                return isSuccessful ? new ResponseJson() { Message = MessageResponse.SuccessfulRegistration, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.IdentificationAlreadyExist, Data = null, Error = true };
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
-                response.Data = null;
-                response.Error = true;
-
-                return response;
+                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
             }
         }
 
@@ -119,21 +99,11 @@ namespace BLL.Insured
             {
                 Dictionary<bool, List<InsuredDTOGet>> result = await _insuredRepository.GetAllInsuredAsync();
 
-                if (!result.First().Key) return new ResponseJson() { Message = MessageResponse.InsuredListNotFound, Data = null, Error = true };
-
-                response.Message = MessageResponse.InsuredList;
-                response.Data = result.First().Value;
-                response.Error = false;
-
-                return response;
+                return result.First().Key ? new ResponseJson() { Message = MessageResponse.InsuredList, Data = result.First().Value, Error = false } : new ResponseJson() { Message = MessageResponse.InsuredListNotFound, Data = null, Error = true };
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
-                response.Data = null;
-                response.Error = true;
-
-                return response;
+                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
             }
         }
 
@@ -191,23 +161,15 @@ namespace BLL.Insured
 
         public async Task<ResponseJson> UpdateInsuredAsync(int id, InsuredDTO insuredDTO)
         {
-            ResponseJson response = new ResponseJson();
-
             try
             {
-                DataTable table = GetDatatable(id, insuredDTO.InsurancesIds);
+                bool isSuccesful = await _insuredRepository.UpdateInsuredAsync(id, insuredDTO);
 
-                bool isSuccesful = await _insuredRepository.UpdateInsuredWithInsurances(id, insuredDTO, table);
-
-                return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulUpdating, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.EmptyFields, Data = null, Error = true };
+                return isSuccesful ? new ResponseJson() { Message = MessageResponse.SuccessfulUpdating, Data = null, Error = false } : new ResponseJson() { Message = MessageResponse.InsuredNotFound, Data = null, Error = true };
             }
             catch (Exception ex)
             {
-                response.Message = ex.Message;
-                response.Data = null;
-                response.Error = true;
-
-                return response;
+                return new ResponseJson() { Message = ex.Message, Data = null, Error = true };
             }
         }
 

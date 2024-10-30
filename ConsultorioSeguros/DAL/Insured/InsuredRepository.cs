@@ -20,7 +20,7 @@ namespace DAL.Insured
         {
             _connectionString = connectionString.Value.DB_Seguros;
         }
-        public async Task<Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>> AddInsuredAsync(InsuredDTO insuredDTO)
+        public async Task<bool> AddInsuredAsync(InsuredDTO insuredDTO)
         {
             try
             {
@@ -41,6 +41,7 @@ namespace DAL.Insured
                                 cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
                                 cmd.Parameters.AddWithValue(SPParameters.PhoneNumber, insuredDTO.PhoneNumber);
                                 cmd.Parameters.AddWithValue(SPParameters.Age, insuredDTO.Age);
+                                cmd.Parameters.AddWithValue(SPParameters.Insurances, insuredDTO.InsurancesIds);
 
                                 cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
 
@@ -48,21 +49,19 @@ namespace DAL.Insured
 
                                 bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
 
-                                Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>> resultInsert = new Dictionary<bool, Dictionary<SqlConnection, SqlTransaction>>();
+                                tran.Commit();
 
-                                Dictionary<SqlConnection, SqlTransaction> keyValuePairs = new Dictionary<SqlConnection, SqlTransaction>();
-
-                                keyValuePairs.Add(conn, tran);
-
-                                resultInsert.Add(result, keyValuePairs);
-
-                                return resultInsert;
+                                return result;
                             }
                         }
                         catch (Exception ex)
                         {
                             tran.Rollback();
                             throw new Exception(ex.Message);
+                        }
+                        finally
+                        {
+                            conn.Close();
                         }
                     }
                 }
@@ -353,28 +352,51 @@ namespace DAL.Insured
             }
         }
 
-        public async Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO, SqlConnection conn, SqlTransaction tran)
+        public async Task<bool> UpdateInsuredAsync(int id, InsuredDTO insuredDTO)
         {
             try
             {
-                string spName = ProcedureNames.UpdateInsured;
-
-                using (SqlCommand cmd = new SqlCommand(spName, conn))
+                using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue(SPParameters.Id, id);
-                    cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
-                    cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
-                    cmd.Parameters.AddWithValue(SPParameters.PhoneNumber, insuredDTO.PhoneNumber);
-                    cmd.Parameters.AddWithValue(SPParameters.Age, insuredDTO.Age);
+                    conn.Open();
 
-                    cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
+                    using (SqlTransaction tran = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string spName = ProcedureNames.UpdateInsured;
 
-                    await cmd.ExecuteNonQueryAsync();
+                            using (SqlCommand cmd = new SqlCommand(spName, conn))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue(SPParameters.Id, id);
+                                cmd.Parameters.AddWithValue(SPParameters.Identification, insuredDTO.Identification);
+                                cmd.Parameters.AddWithValue(SPParameters.InsuredName, insuredDTO.InsuredName);
+                                cmd.Parameters.AddWithValue(SPParameters.PhoneNumber, insuredDTO.PhoneNumber);
+                                cmd.Parameters.AddWithValue(SPParameters.Age, insuredDTO.Age);
+                                cmd.Parameters.AddWithValue(SPParameters.Insurances, insuredDTO.InsurancesIds);
 
-                    bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
+                                cmd.Parameters.Add(new SqlParameter() { ParameterName = SPParameters.Result, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Output });
 
-                    return result;
+                                await cmd.ExecuteNonQueryAsync();
+
+                                bool result = (bool)cmd.Parameters[SPParameters.Result].Value;
+
+                                tran.Commit();
+
+                                return result;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            throw new Exception(ex.Message);
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -422,13 +444,13 @@ namespace DAL.Insured
                     {
                         try
                         {
-                            bool statusUpdate = await UpdateInsuredAsync(id, insured, conn, tran);
+                            //bool statusUpdate = await UpdateInsuredAsync(id, insured, conn, tran);
 
-                            if (!statusUpdate)
-                            {
-                                tran.Rollback();
-                                throw new Exception(MessageResponse.InsuredNotFound);
-                            }
+                            //if (!statusUpdate)
+                            //{
+                            //    tran.Rollback();
+                            //    throw new Exception(MessageResponse.InsuredNotFound);
+                            //}
 
                             bool statusInsurances = await AssignInsuanceToInsuredAsync(id, insured, insurances, conn, tran);
 

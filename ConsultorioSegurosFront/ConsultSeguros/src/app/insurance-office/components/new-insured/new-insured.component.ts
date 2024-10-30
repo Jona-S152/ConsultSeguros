@@ -74,7 +74,7 @@ export class NewInsuredComponent implements OnInit {
       })
   }
 
-  addInsurance(){
+  addInsured(){
 
     if (this.insuredForm.invalid) return;
 
@@ -88,7 +88,7 @@ export class NewInsuredComponent implements OnInit {
     this.insuredService.addInsured(currentInsured)
       .subscribe({
         next: (res) => {
-          this.insuredService.addInsuredToList(this.currentInsuredForm);
+          this.insuredService.addInsuredToList(currentInsured);
 
           Swal.fire({
             icon: 'success',
