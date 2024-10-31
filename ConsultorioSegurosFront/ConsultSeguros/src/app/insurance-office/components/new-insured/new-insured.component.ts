@@ -64,6 +64,10 @@ export class NewInsuredComponent implements OnInit {
             icon: 'success',
             text: res.message
           });
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         },
         error: (err) => {
           Swal.fire({
