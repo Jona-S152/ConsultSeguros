@@ -36,12 +36,6 @@ export class InsuranceService {
       )
   }
 
-  setCopyInsuranceList(){
-    console.log(this.insuranceList)
-    this.originalInsuranceList = [...this.insuranceList]
-    console.log(this.originalInsuranceList)
-  }
-
   deleteInsurance( id : number ) : Observable<ResponseJSON> {
     return this.http.delete<ResponseJSON>(`${this.baseUrl}/api/Insurance/Delete/${id}`)
       .pipe(
@@ -55,7 +49,8 @@ export class InsuranceService {
   }
 
   addList( insurances : Insurance[] ){
-    this.insuranceList = insurances;
+    this.insuranceList = [...insurances];
+    this.originalInsuranceList = [...this.insuranceList]
     this.myInsuranceList.next(this.insuranceList);
   }
 
@@ -84,7 +79,6 @@ export class InsuranceService {
   }
 
   updateInsurance( insurance : Insurance ) : Observable<ResponseJSON>{
-    console.log(insurance)
     return this.http.put<ResponseJSON>(`${this.baseUrl}/api/Insurance/Update/${insurance.id}`, insurance)
       .pipe(
         catchError( err => throwError( () => err.error ))

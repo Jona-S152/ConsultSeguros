@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-list-insurance-page',
@@ -23,8 +24,7 @@ export class ListInsurancePageComponent {
   public initialValue : string = '';
 
   public hasLoaded : boolean = false;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  
   public insuranceEditForm = new FormGroup({
     id : new FormControl<number | null>(0),
     insuranceName : new FormControl<string>('', [Validators.required]),
@@ -32,14 +32,15 @@ export class ListInsurancePageComponent {
     insuranceAmount : new FormControl<number | null>(0, [Validators.required]),
     prima : new FormControl<number | null>(0, [Validators.required])
   })
-
+  
   public get currentInsuranceEditForm() : Insurance {
     return this.insuranceEditForm.value as Insurance;
   }
   
   public displayedColumns: string[] = ['Nombre', 'Código', 'Suma asegurada', 'Prima', 'Acciones'];
   public dataSource = new MatTableDataSource<Insurance>(this.insuranceService.myInsuranceLst);
-  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   ngOnInit(): void {
     this.insuranceService.getAllInsurances()
       .subscribe(
@@ -48,19 +49,19 @@ export class ListInsurancePageComponent {
             this.response = res;
             this.insuranceService.addList(res.data);
             this.hasLoaded = true;
-            this.insuranceService.setCopyInsuranceList();
+            this.dataSource.data = res.data;
           }
         }
       )
+
+    setTimeout(() => {
+      console.log('paginator: ', this.paginator)
+      this.dataSource.paginator = this.paginator;
+      console.log('datasource: ', this.dataSource)
+    },100);
   }  
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   ChangeEditSave( element : Insurance ) {
-    
-
     if ( this.selectedElement === element) {
       // Guardar cambios
       Swal.fire({
@@ -78,6 +79,7 @@ export class ListInsurancePageComponent {
             {
               next: (res) => {
                 this.insuranceService.updateInsuranceToList(this.currentInsuranceEditForm);
+                this.dataSource.data = this.insuranceService.myInsuranceLst;
                 Swal.fire({
                   icon: 'success',
                   text: res.message
@@ -126,6 +128,7 @@ export class ListInsurancePageComponent {
                   })
                 } else {
                   this.insuranceService.deleteInsuranceToList(element.id);
+                  this.dataSource.data = this.insuranceService.myInsuranceLst;
                   Swal.fire({
                     icon: 'success',
                     text: res.message
@@ -136,7 +139,7 @@ export class ListInsurancePageComponent {
           )
         }
       });
-      this.selectedElement = element;
+      this.selectedElement = null;
     }
 
     
@@ -144,5 +147,6 @@ export class ListInsurancePageComponent {
 
   searchByCode(code: string){
     this.insuranceService.searchInsuranceByCodeLst(code);
+    this.dataSource.data = this.insuranceService.myInsuranceLst;
   }
 }

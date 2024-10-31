@@ -37,10 +37,6 @@ export class InsuredService {
     this.myInsuredList.next(this.insuredList);
   }
 
-  setCopyInsuredList(){
-    this.originalInsuredList = [...this.myInsuredLst];
-  }
-
   updateInsured( insured : Insured ) : Observable<ResponseJSON>{
     return this.http.put<ResponseJSON>(`${this.baseUrl}/api/Insured/Update/${insured.id}`, insured)
       .pipe(
@@ -68,13 +64,7 @@ export class InsuredService {
   }
 
   searchInsuredByIdentificationLst( identification : string ){
-    if ( identification === ''){
-      this.setCopyInsuredList();
-    }
-    else {
-      this.insuredList = this.originalInsuredList.filter( i => i.identification.startsWith(identification))
-      this.myInsuredList.next(this.insuredList);
-    }
+    this.addList(this.originalInsuredList.filter( i => i.identification.startsWith(identification)))
   }
 
   searchInsuredByIdentification( identification : string ) : Observable<ResponseJSON> {
@@ -93,6 +83,7 @@ export class InsuredService {
 
   addInsuredToList( insured : Insured ){
     this.insuredList.push(insured);
+    this.originalInsuredList = [...this.insuredList]
     this.myInsuredList.next(this.insuredList);
   }
 
@@ -108,7 +99,6 @@ export class InsuredService {
   }
 
   assignInsurancesToInsured( InsurancesIds : string ) : Observable<ResponseJSON> {
-    console.log({InsurancesIds})
     return this.http.post<ResponseJSON>(`${this.baseUrl}/api/Insured/AssignInsurances`, {InsurancesIds})
       .pipe(
         catchError( err => throwError( () => err.error ))

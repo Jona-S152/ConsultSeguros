@@ -21,15 +21,16 @@ export class ListInsuredPageComponent implements OnInit{
   public insureds = this.insuredService.$myInsuredList
   public insurances = this.insuranceService.myInsuranceLst;
 
+  private insuredList : Insured[] = [];
+
   public selectedInsurances: number[] = [];
 
   public selectedElement : Insured | null = null;
   public initialValue : string = '';
 
   public hasLoaded : boolean = false;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-
+  
+  
   public insuredEditForm = new FormGroup({
     id : new FormControl<number | null>(0),
     identification : new FormControl<string>('', [Validators.required]),
@@ -38,11 +39,11 @@ export class ListInsuredPageComponent implements OnInit{
     age : new FormControl<number | null>(0, [Validators.required]),
     insurances : new FormControl<string[] | null>(null, [Validators.required])
   })
-
+  
   public get currentInsuredEditForm() : Insured {
     return this.insuredEditForm.value as Insured;
   }
-
+  
   public getCurrentInsuredUpdateForm( insurances : string ) : Insured {
     const currentInsuredForm : Insured = {
       id : this.currentInsuredEditForm.id,
@@ -52,14 +53,16 @@ export class ListInsuredPageComponent implements OnInit{
       age: this.currentInsuredEditForm.age,
       insurancesIds: insurances
     }
-
+    
     return currentInsuredForm;
   }
   
   public displayedColumns: string[] = ['Identificación', 'Nombre', 'N° de teléfono', 'Edad', 'Seguros', 'Acciones'];
   public dataSource = new MatTableDataSource<Insured>(this.insuredService.myInsuredLst);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   ngOnInit(): void {
+    console.log('paginator: ', this.paginator)
     this.insuredService.getAllInsureds()
       .subscribe(
         {
@@ -83,6 +86,7 @@ export class ListInsuredPageComponent implements OnInit{
                     }
                     
                     this.insuredService.addInsuredToList(insured);
+                    this.dataSource.paginator = this.paginator;
                   },
                   error: () => {
                     const insured : Insured = {
@@ -95,6 +99,7 @@ export class ListInsuredPageComponent implements OnInit{
                     }
         
                     this.insuredService.addInsuredToList(insured);
+                    this.dataSource.paginator = this.paginator;
                   },
                 })
             })
@@ -103,14 +108,8 @@ export class ListInsuredPageComponent implements OnInit{
           }
         }
       )
-
-    this.insureds.subscribe({
-      next: () => {
-        this.insuredService.setCopyInsuredList();
-      }
-    });
       
-    this.insuranceService.getAllInsurances()
+      this.insuranceService.getAllInsurances()
       .subscribe({
         next: (resp) => {
           this.insuranceService.addList(resp.data)
@@ -159,7 +158,7 @@ export class ListInsuredPageComponent implements OnInit{
                 currentInsured.insurancesIds = selectedTexts.join();
 
                 this.insuredService.updateInsuredToList(currentInsured);
-                
+                this.dataSource.data = this.insuredService.myInsuredLst;
                 Swal.fire({
                   icon: 'success',
                   text: res.message
@@ -218,6 +217,7 @@ export class ListInsuredPageComponent implements OnInit{
                   })
                 } else {
                   this.insuredService.deleteInsuredToList(element.id);
+                  this.dataSource.data = this.insuredService.myInsuredLst;
                   Swal.fire({
                     icon: 'success',
                     text: res.message
@@ -228,7 +228,7 @@ export class ListInsuredPageComponent implements OnInit{
           )
         }
       });
-      this.selectedElement = element;
+      this.selectedElement = null;
     }
 
     
@@ -236,5 +236,6 @@ export class ListInsuredPageComponent implements OnInit{
 
   searchByIdentification( identification: string ){
     this.insuredService.searchInsuredByIdentificationLst(identification);
+    this.dataSource.data = this.insuredService.myInsuredLst;
   }
 }
