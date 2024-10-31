@@ -1,7 +1,7 @@
 USE [DB_Seguros]
 GO
 
-/****** Object:  StoredProcedure [dbo].[GetAllInsureds]    Script Date: 15/10/2024 14:43:02 ******/
+/****** Object:  StoredProcedure [dbo].[GetAllInsureds]    Script Date: 31/10/2024 11:14:24 ******/
 SET ANSI_NULLS ON
 GO
 
